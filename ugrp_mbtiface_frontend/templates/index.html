@@ -1,0 +1,182 @@
+<!doctype html>
+
+<html lang="ko">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5K2V9ZNPEK"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-5K2V9ZNPEK');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="naver-site-verification" content="deaf95ed7de7694646e6ac98d74b7a29cfe53df5" /> <!--naver searchadviser-->
+    <meta name="google-site-verification" content="s4HkExQZC1wjy9_ZFOedXKZjb81lfMZEvMLgGnxA7Rw" /> <!--Google searchconsole-->
+
+
+    <meta property="og:title" content="인공지능 MBTI! 얼굴로 알아보는 나의 MBTI는?">
+    <meta property="og:description" content="수천 장의 얼굴 데이터로 학습된 AI가 여러분의 얼굴을 보고 MBTI 상을 알려드려요!">
+    <meta property="og:image" content="{{url_for('static', filename='image/mbti_table5.JPG')}}">
+    <meta name="description" content="수천 장의 얼굴 데이터로 훈련된 Machine Learning 모델에 얼굴을 넣었을 때 그에 해당하는 MBTI 상을 얻을 수 있습니다.">
+    <meta name="keywords" content="MBTI, 인공지능, 인상, 얼굴">
+
+    <title>
+        인공지능 MBTI
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="">
+    <link rel="shortcut icon" href="{{url_for('static', filename='image/image1.png')}}"><!-- 파비콘 아이콘 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <style>
+
+
+        @media all and (max-width: 480px) {
+            img.dis1{
+                width: 70%;
+                max-width: 200px;
+                height: auto;
+            }
+            
+        }
+
+        @media all and (min-width: 480px) {
+            img.dis1{
+                width: auto;
+                height: auto;
+            }
+        }
+
+        body {
+            font-size: larger;
+            background-image:url("{{url_for('static', filename='image/checkfi.jpg')}}" ) ;
+            font-family: 'Sunflower', sans-serif;
+        }
+
+        button.cl:hover{
+            opacity: 50%;
+        }
+    </style>
+    <script type="text/javascript">
+
+        jQuery(function ($) {
+            $("body").css("display", "none");
+            $("body").fadeIn(700);
+            $("a.transition").click(function (event) {
+                event.preventDefault();
+                linkLocation = this.href;
+                $("body").fadeOut(700, redirectPage);
+            });
+            function redirectPage() {
+                window.location = linkLocation;
+            }
+        });
+
+    </script>
+</head>
+
+
+
+<body>
+
+    <div id="wrap">
+
+        <style>
+        
+            @media all and (max-width: 400px) {
+                body {
+                    margin-top: 40px;
+                    font-size: 80%;
+
+                }
+                .dis{
+                    font-size: 90%;
+                }
+                .btn1{
+                    padding-left: 10px; padding-right: 10px; 
+                    font-size: 80%;
+                }
+            }
+
+            @media all and (min-width: 400px) and (max-width: 768px) {
+                body {
+                    margin-top: 50px;
+
+                }
+                .btn1{
+                    padding-left: 15px; padding-right: 15px; 
+                }
+            }
+
+            @media all and (min-width: 768px) and (max-width: 1024px) {
+                body {
+                    margin-top: 100px;
+                }
+                .btn1{
+                    padding-left: 20px; padding-right: 20px; 
+                }
+            }
+
+            @media all and (min-width: 1024px){
+                body {
+                    margin-top: 100px;
+                    font-size: 120%;
+                }
+                .btn1{
+                    padding-left: 20px; padding-right: 20px; 
+                }
+            }
+
+        </style>
+
+        <div class="dis" style="text-align: center;">
+            <h2>인상으로<br>MBTI 알아보기</h2>
+
+            <p style="color:rgb(92, 92, 92)">
+                AI가 생각한 나의 MBTI는?
+            </p>
+
+
+        </div>
+
+
+
+        <div style="text-align: center">
+            <img class="dis1" src="{{url_for('static', filename='image/image3.png')}}">
+        </div>
+
+        <div style="text-align: center">
+            <br>
+            <br>
+
+            <button class ="cl" onclick="location.href='agree'"
+                style="border-radius: 70px; background-color:#114eb6; border-color: #a1c3ff; border-style: solid;">
+                <h3 class="btn1" style="color: #ffffff;font-family: 'Sunflower', sans-serif"> 얼굴로 MBTI 알아보기 </h3>
+            </button>
+
+            <p style="color: rgb(116, 116, 116); font-size: 10px;">
+                2020_POSTECH-YONSEI_UGRP
+            </p>
+            <br>
+
+            <span style="color: #102d5f; margin-left: 20px; margin-right: 20px; font-size: smaller; font-family: 'Sunflower', sans-serif"> 나의 MBTI를 모른다면? </span>
+            <br> <button class ="cl" onclick="location.href='https://www.16personalities.com/ko'"
+            style=" background-color:#114db600; border-color: #23488800; border-style: solid;">
+            <b style="color: #102d5f; margin-left: 20px; margin-right: 20px; font-size: smaller; font-family: 'Sunflower', sans-serif"> >> 간단하게 검사하러 가기(Click!) </b>
+        </button>
+        </div>
+
+
+
+    </div>
+
+</body>
+
+</html>

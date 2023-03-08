@@ -1,0 +1,243 @@
+<!doctype html>
+
+<html lang="ko">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        AI로 MBTI 예측하기
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="">
+    <link rel="shortcut icon" href=""><!-- 파비콘 아이콘 -->
+    <style>
+        .subtitle {
+            margin-top: 30px;
+            margin-left: 10px;
+            color: #2F5597;
+            font-weight: 700;
+        }
+    </style>
+    <!--script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script type="text/javascript">
+
+    $(function(){//제이쿼리 시작
+    });
+    </script-->
+    <style>
+        @media all and (max-width: 350px) {
+            .dis1{ display:block;}
+            .dis2{ display: none;}
+            .dis3{ display: none;}
+            .dis4{ display: none;}
+            .dis5{ display: none;}
+            
+        }
+
+        @media all and (min-width: 350px) and (max-width: 768px) {
+            .dis1{ display: none;}
+            .dis2{ display: block;}
+            .dis3{ display: none;}
+            .dis4{ display: none;}
+            .dis5{ display: none;}
+        }
+
+        @media all and (min-width: 768px) and (max-width: 1024px) {
+            .dis1{ display: none;}
+            .dis2{ display: none;}
+            .dis3{ display: block;}
+            .dis4{ display: none;}
+            .dis5{ display: none;}
+
+        }
+
+        @media all and (min-width: 1024px) and (max-width: 1280px) {
+            .dis1{ display: none;}
+            .dis2{ display: none;}
+            .dis3{ display: none;}
+            .dis4{ display: block;}
+            .dis5{ display: none;}
+        }
+
+        @media all and (min-width: 1280px) {
+            .dis1{ display: none;}
+            .dis2{ display: none;}
+            .dis3{ display: none;}
+            .dis4{ display: block;}
+            .dis5{ display: none;}
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <div id="wrap">
+
+        <div class="subtitle">
+            개인정보 활용 동의서
+        </div>
+
+        
+        <div class="dis1" style="text-align: center; color: rgb(77, 76, 76); font-size: 50%">
+            <br><br><br>
+
+            본 웹사이트는 <br> 2020 POSTECH UGRP(학부생 연구 프로그램)의 결과로써
+            <br> 딥러닝 모델 VGG로 추출한 얼굴의 feature 값을 <br>ML(machine learning) 기법으로 학습한 모델로
+            <br> MBTI를 예측하는 목적으로 제작되었습니다.
+            <br><br> 본 웹사이트는 향후 수집된 얼굴들로 <br>모델의 성능을 더욱 향상시키고자 합니다.
+            <br> 아래 약관에 동의하신다면, <br> 입력된 얼굴은 향후 모델을 다시 학습하는데 사용됩니다.
+            <br> 수집된 얼굴은 "모델 학습" 외 다른 목적에 <br> 전혀 사용되지 않습니다.
+            <br><br>약관에 동의하지 않으신다면, <br>VGG로 추출한 얼굴 feature 값만을 저장해서
+            <br> MBTI 값을 에측하는 데에만 사용됩니다.
+            <br><br>
+            <br> 아래 약관에 동의하시겠습니까?
+
+            <br><br>
+            <p>
+                <button onclick="location.href='agreewith'"
+                    style="border-color: #ffffff; background-color: #ffffff; border-style: solid; color: #3362b3"><b>예,
+                        동의합니다.</b></button>
+
+            </p>
+
+            <p>
+                <button onclick="location.href='disagree'"
+                    style="border-color: #ffffff; background-color: #ffffff; border-style: solid; color: #494d55"><b>아니요,
+                        수집을 원하지 않습니다.</b></button>
+            </p>
+        </div>
+
+       
+        <div class="dis2" style="text-align: center; color: rgb(77, 76, 76); font-size: 80%;">
+            <br><br><br><br><br><br>
+
+            본 웹사이트는 <br>2020 POSTECH UGRP(학부생 연구 프로그램)의 결과로써
+            <br> 딥러닝 모델 VGG로 추출한 얼굴의 feature 값을 ML(machine learning) 기법으로 학습한 모델로
+            <br> MBTI를 예측하는 목적으로 제작되었습니다.
+            <br><br> 본 웹사이트는 향후 수집된 얼굴들로 모델의 성능을 <br>더욱 향상시키고자 합니다.
+            <br> 아래 약관에 동의하신다면, 입력된 얼굴은 <br> 향후 모델을 다시 학습하는데 사용됩니다.
+            <br> 수집된 얼굴은 "모델 학습" 외  <br>다른 목적에 전혀 사용되지 않습니다.
+            <br><br>약관에 동의하지 않으신다면, <br> VGG로 추출한 얼굴 feature 값만을 저장해서
+            <br> MBTI 값을 에측하는 데에만 사용됩니다.
+            <br><br>
+            <br> 아래 약관에 동의하시겠습니까?
+
+            <br><br>
+            <p>
+                <button onclick="location.href='agreewith'"
+                    style="border-color: #ffffff; background-color: #ffffff; border-style: solid; color: #3362b3"><b>예,
+                        동의합니다.</b></button>
+
+            </p>
+
+            <p>
+                <button onclick="location.href='disagree'"
+                    style="border-color: #ffffff; background-color: #ffffff; border-style: solid; color: #494d55"><b>아니요,
+                        수집을 원하지 않습니다.</b></button>
+            </p>
+        </div>
+        
+        <div class="dis3" style="text-align: center; color: rgb(77, 76, 76)">
+            <br><br><br><br><br><br>
+
+            본 웹사이트는 2020 POSTECH UGRP(학부생 연구 프로그램)의 결과로써
+            <br> 딥러닝 모델 VGG로 추출한 얼굴의 feature 값을 <br>ML(machine learning) 기법으로 학습한 모델로
+            <br> MBTI를 예측하는 목적으로 제작되었습니다.
+            <br><br> 본 웹사이트는 향후 수집된 얼굴들로 모델의 성능을 더욱 향상시키고자 합니다.
+            <br> 아래 약관에 동의하신다면, 입력된 얼굴은 향후 모델을 다시 학습하는데 사용됩니다.
+            <br> 수집된 얼굴은 "모델 학습" 외 다른 목적에 전혀 사용되지 않습니다.
+            <br>약관에 동의하지 않으신다면, VGG로 추출한 얼굴 feature 값만을 저장해서
+            <br> MBTI 값을 에측하는 데에만 사용됩니다.
+            <br><br>
+            <br> 아래 약관에 동의하시겠습니까?
+
+            <br><br>
+            <p>
+                <button onclick="location.href='agreewith'"
+                    style="border-color: #ffffff; background-color: #ffffff; border-style: solid; color: #3362b3"><b>예,
+                        동의합니다.</b></button>
+
+            </p>
+
+            <p>
+                <button onclick="location.href='disagree'"
+                    style="border-color: #ffffff; background-color: #ffffff; border-style: solid; color: #494d55"><b>아니요,
+                        수집을 원하지 않습니다.</b></button>
+            </p>
+        </div>
+
+
+        <div class="dis4" style="text-align: center; color: rgb(77, 76, 76); font-size: 120%">
+            <br><br><br><br><br><br>
+
+            본 웹사이트는 2020 POSTECH UGRP(학부생 연구 프로그램)의 결과로써
+            <br> 딥러닝 모델 VGG로 추출한 얼굴의 feature 값을 ML(machine learning) 기법으로 학습한 모델로
+            <br> MBTI를 예측하는 목적으로 제작되었습니다.
+            <br><br> 본 웹사이트는 향후 수집된 얼굴들로 모델의 성능을 더욱 향상시키고자 합니다.
+            <br> 아래 약관에 동의하신다면, 입력된 얼굴은 향후 모델을 다시 학습하는데 사용됩니다.
+            <br> 수집된 얼굴은 "모델 학습" 외 다른 목적에 전혀 사용되지 않습니다.
+            <br>약관에 동의하지 않으신다면, VGG로 추출한 얼굴 feature 값만을 저장해서
+            <br> MBTI 값을 에측하는 데에만 사용됩니다.
+            <br><br>
+            <br> 아래 약관에 동의하시겠습니까?
+
+            <br><br>
+            <p>
+                <button onclick="location.href='agreewith'"
+                    style="border-color: #ffffff; background-color: #ffffff; border-style: solid; color: #3362b3"><b>예,
+                        동의합니다.</b></button>
+
+            </p>
+
+            <p>
+                <button onclick="location.href='disagree'"
+                    style="border-color: #ffffff; background-color: #ffffff; border-style: solid; color: #494d55"><b>아니요,
+                        수집을 원하지 않습니다.</b></button>
+            </p>
+        </div>
+
+        <div class="dis5" style="text-align: center; color: rgb(77, 76, 76); font-size: 120%">
+            <br><br><br><br><br><br>
+
+            본 웹사이트는 2020 POSTECH UGRP(학부생 연구 프로그램)의 결과로써
+            <br> 딥러닝 모델 VGG로 추출한 얼굴의 feature 값을 ML(machine learning) 기법으로 학습한 모델로
+            <br> MBTI를 예측하는 목적으로 제작되었습니다.
+            <br><br> 본 웹사이트는 향후 수집된 얼굴들로 모델의 성능을 더욱 향상시키고자 합니다.
+            <br> 아래 약관에 동의하신다면, 입력된 얼굴은 향후 모델을 다시 학습하는데 사용됩니다.
+            <br> 수집된 얼굴은 "모델 학습" 외 다른 목적에 전혀 사용되지 않습니다.
+            <br>약관에 동의하지 않으신다면, VGG로 추출한 얼굴 feature 값만을 저장해서
+            <br> MBTI 값을 에측하는 데에만 사용됩니다.
+            <br><br>
+            <br> 아래 약관에 동의하시겠습니까?
+
+            <br><br>
+            <p>
+                <button onclick="location.href='agreewith'"
+                    style="border-color: #ffffff; background-color: #ffffff; border-style: solid; color: #3362b3"><b>예,
+                        동의합니다.</b></button>
+
+            </p>
+
+            <p>
+                <button onclick="location.href='disagree'"
+                    style="border-color: #ffffff; background-color: #ffffff; border-style: solid; color: #494d55"><b>아니요,
+                        수집을 원하지 않습니다.</b></button>
+            </p>
+        </div>
+
+    </div>
+
+
+
+    </div>
+
+</body>
+
+</html>

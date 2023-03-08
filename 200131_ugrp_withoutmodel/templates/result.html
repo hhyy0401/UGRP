@@ -1,0 +1,958 @@
+<!doctype html>
+
+<html lang="ko">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="page-enter" content="BlendTrans(Duration=0.1)">
+
+    <meta http-equiv="page-exit" content="BlendTrans(Duration=0.1)">
+
+
+    <title>
+        AI로 MBTI 예측하기
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="">
+    <link rel="shortcut icon" href=""><!-- 파비콘 아이콘 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+
+    <style>
+        @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+        .subtitle {
+            margin-top: 40px;
+            text-align: center;
+            color: #2F5597;
+            font-weight: 700;
+
+        }
+
+        .note1 {
+            position: relative;
+            background: #ffd493;
+            margin: 20px;
+            padding: 15px;
+            color: rgb(66, 32, 0);
+            justify-content: center;
+        }
+
+        .note1:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-width: 0 16px 16px 0;
+            border-style: solid;
+            border-color: #ffffff #ffffff #bb6a00 #bb6a00;
+            background: #bb6a00;
+            display: block;
+            width: 0;
+        }
+        div.fi {
+            display: none;
+        }
+
+        body {
+            background-image:url("{{url_for('static', filename='image/checkfi.jpg')}}" ) ;
+            font-family: 'Sunflower', sans-serif;
+        }
+        
+        button.cl:hover{
+            opacity: 50%;
+        }
+        
+        button.cl2:hover{
+            opacity: 50%;
+        }
+        
+        @media all and (max-width: 400px) {
+            body {
+                margin-top: 40px;
+                font-size: 80%;
+
+            }
+
+            button.textbox2 {
+                width: 65px;
+                height: 65px;
+                border-radius: 10px;
+                border-spacing: 1px;
+                padding: 1px;
+                margin: 2.5px;
+                padding-top: 5px;
+                font-size: 14px;
+                display: table-cell;
+            }
+
+            button.textbox {
+                display: none;
+            }
+
+            button.texttable {
+                border-spacing: 1px;
+            }
+
+            .p1 {
+                font-size: 4px;
+            }
+
+        }
+
+        @media all and (min-width: 400px) and (max-width: 750px) {
+            body {
+                margin-top: 40px;
+                font-size: 80%;
+
+            }
+
+            button.textbox2 {
+                width: 75px;
+                height: 75px;
+                border-radius: 10px;
+                border-spacing: 2px;
+                padding: 2px;
+                margin: 2.5px;
+                padding-top: 5px;
+                font-size: 21px;
+                display: table-cell;
+            }
+
+            button.textbox {
+                display: none;
+            }
+
+            button.texttable {
+                border-spacing: 1px;
+            }
+
+            .p1 {
+                font-size: 4px;
+            }
+        }
+
+        @media all and (min-width: 750px) and (max-width: 1024px) {
+            body {
+                margin-top: 40px;
+
+            }
+
+            .b1 {
+                font-size: 30px;
+            }
+
+            button.textbox {
+                width: 120px;
+                height: 120px;
+                border-radius: 10px;
+                border-spacing: 2px;
+                padding: 2px;
+                margin: 2.5px;
+                padding-top: 5px;
+                font-size: 40px;
+                display: table-cell;
+            }
+
+            button.textbox2 {
+                display: none;
+            }
+
+            button.texttable {
+                border-spacing: 1px;
+            }
+
+            .p1 {
+                font-size: 10px;
+            }
+        }
+
+        @media all and (min-width: 1024px) {
+
+            .b1 {
+                font-size: 40px;
+            }
+
+            button.textbox {
+                width: 120px;
+                height: 120px;
+                border-radius: 10px;
+                border-spacing: 2px;
+                padding: 2px;
+                margin: 5px;
+                padding-top: 10px;
+                font-size: 40px;
+                display: table-cell;
+            }
+
+            button.textbox2 {
+                display: none;
+            }
+
+            button.texttable {
+                border-spacing: 2px;
+            }
+
+            .p1 {
+                font-size: 10px;
+            }
+        }
+
+
+        button.textbox {
+            background: #ffffff;
+            color: #4d4d4d;
+            font-weight: bold;
+            border: 2.4px solid rgb(187, 187, 187);
+            justify-content: space-between;
+            text-align: center;
+            font-family: 'Sunflower', sans-serif;
+            
+            border-style: double;
+        }
+
+        button.textbox2 {
+            background: #ffffff;
+            color: #4d4d4d;
+            font-weight: bold;
+            border: 2.4px solid rgb(187, 187, 187);
+            justify-content: space-between;
+            text-align: center;
+            font-family: 'Sunflower', sans-serif;
+
+            border-style: double;
+        }
+
+        button.textbox:hover{
+            opacity: 50%;
+        }
+        button.textbox2:hover{
+            opacity: 50%;
+        }
+
+        div.texttable {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+
+        }
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script type="text/javascript">
+
+        jQuery(function ($) {
+            $("body").css("display", "none");
+            $("body").fadeIn(2000);
+            $("a.transition").click(function (event) {
+                event.preventDefault();
+                linkLocation = this.href;
+                $("body").fadeOut(1000, redirectPage);
+            });
+            function redirectPage() {
+                window.location = linkLocation;
+            }
+        });
+
+    </script>
+
+    <style >
+        @media all and (max-width: 350px) {
+            .dis1 {
+                font-size: 50%;
+            }
+
+            .more {
+                display: block;
+            }
+
+            div.big2 {
+                display: none;
+            }
+
+            div.window {
+                margin-top: 20px;
+                text-align: center;
+                font-size: 25px
+            }
+
+            b.window {
+                font-size: 15px;
+            }
+
+            img.window {
+                width: 80%;
+                text-align: center;
+            }
+
+            img.pho {
+                width: 80%;
+                font-size: 20px;
+            }
+            img.finale {
+                width: 60px;
+            }
+            div.finale {
+                font-size: 15px;
+            }
+            .cl2{
+                font-size: 15px;
+            }
+            .note1 {
+                font-size: 15px;
+            }
+            .ft {
+                font-size: 10px;
+                
+            }
+            img.ft{
+                height: 10px;
+            }
+        }
+
+        @media all and (min-width: 350px) and (max-width: 768px) {
+            .dis1 {
+                font-size: 70%;
+            }
+
+            .more {
+                display: block;
+            }
+
+            div.big2 {
+                display: none;
+            }
+
+            div.window {
+                margin-top: 20px;
+                text-align: center;
+                font-size: 25px
+            }
+
+            b.window {
+                font-size: 15px;
+            }
+
+            img.window {
+                text-align: center;
+            }
+
+            img.pho {
+                width: 300px;
+                font-size: 25px;
+            }
+            img.finale {
+                width: 120px;
+            }
+            div.finale {
+                font-size: 17px;
+            }
+            .cl2{
+                font-size: 17px;
+            }
+            .note1 {
+                font-size: 20px;
+            }
+            .ft {
+                font-size: 10px;
+              
+            }
+            img.ft {
+                height: 10px;
+            }
+        }
+
+        @media all and (min-width: 768px) and (max-width: 1024px) {
+            .dis1 {
+                font-size: 90%;
+            }
+
+            .more {
+                display: none;
+            }
+
+            div.big2 {
+                margin-top: 30px;
+                text-align: center;
+            }
+
+            div.big1 {
+                display: none;
+            }
+
+            div.window {
+                font-size: 35px;
+                display: inline-block;
+            }
+
+            b.window {
+                font-size: 20px;
+            }
+
+            img.window {
+                margin-left: 30px;
+                text-align: center;
+                display: inline-block;
+            }
+
+            .note1 {
+                width: 600px;
+                display: inline-block;
+                font-size: 30px;
+            }
+
+            img.finale {
+                width: 150px;
+            }
+            div.finale {
+                font-size: 30px;
+            }            
+            .cl2{
+                font-size: 30px;
+            }
+            .ft {
+                font-size: 15px;
+                
+            }
+            img.ft {
+                height: 15px;
+            }
+
+        }
+
+        @media all and (min-width: 1024px) and (max-width: 1280px) {
+            .dis1 {
+                font-size: 110%;
+                margin-top: 100px
+            }
+
+            .more {
+                display: none;
+            }
+
+            div.big2 {
+                margin-top: 30px;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            div.big1 {
+                display: none;
+            }
+
+            div.window {
+                font-size: 40px;
+                display: inline-block;
+            }
+
+            b.window {
+                font-size: 25px;
+            }
+
+            img.window {
+                margin-left: 40px;
+                text-align: center;
+                display: inline-block;
+            }
+
+            .note1 {
+                width: 800px;
+                display: inline-block;
+                font-size: 30px;
+            }
+            img.finale {
+                width: 150px;
+            }
+            div.finale {
+                font-size: 30px;
+            }
+            .cl2{
+                font-size: 30px;
+            }
+            .ft {
+                font-size: 15px;
+               
+            }
+            img.ft {
+                height: 15px;
+            }
+        }
+
+        @media all and (min-width: 1280px) {
+            .dis1 { font-size: 130%;
+                margin-top: 150px
+            }
+
+            .more {
+                display: none;
+            }
+
+            div.big2 {
+                margin-top: 30px;
+                text-align: center;
+                vertical-align: middle;
+            }
+
+            div.big1 {
+                display: none;
+            }
+
+            div.window {
+                font-size: 40px;
+                display: inline-block;
+            }
+
+            b.window {
+                font-size: 28px;
+            }
+
+            img.window {
+                margin-left: 60px;
+                text-align: left;
+                display: inline-block;
+            }
+
+            .note1 {
+                width: 800px;
+                display: inline-block;
+                font-size: 30px;
+            }
+            img.finale {
+                width: 200px;
+            }
+            div.finale {
+                font-size: 30px;
+            }
+            .cl2{
+                font-size: 30px;
+            }
+            .ft {
+                font-size: 15px;
+               
+            }
+            img.ft {
+                height: 15px;
+            }
+
+        }
+    
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <div id="wrap">
+
+        <!--div class="subtitle">
+            AI가 판별한 당신의 MBTI는?
+        </div-->
+        <br>
+        <b style="display: none;" id="useruser">{{userid}}</b>
+
+        <div class="big1" style=" text-align: center;">
+
+
+            <img class="window" style="vertical-align: middle"
+                src="{{ url_for('static', filename=''.join([userid, '.jpg'])) }}" />
+
+            <div class="window" onload="view_result();" style="color: rgb(94, 93, 95); vertical-align: middle;">
+                <span id="res"></span>
+                AI가 생각한 <br> 당신의 MBTI는 <br>
+                <!--b style=" text-align: center; font-size: 30px; color: rgb(70, 70, 70)"> "<b
+                    id="model_result">{{mbti_result}}</b>"<br></b-->
+                <b style=" text-align: center;  color: rgb(72, 34, 102)"> <span id="viewtext2"></span>: <br>"<b id="model_result">{{mbti_result}}</b>"<br></b>
+
+                <b class="window" style="color: rgb(105, 105, 105); font-weight: bold;">
+                    정확도: <span id="accur"></span>
+                </b>
+
+
+                <b id="user_result" style="display: none">{{user_result}}</b>
+            </div>
+
+
+
+        </div>
+
+        <div class="big2" style=" text-align: center;">
+
+
+            <div class="window" onload="view_result();" style="color: rgb(94, 93, 95); vertical-align: middle; ; ">
+                <span id="res"></span>
+                AI가 생각한 <br> 당신의 MBTI는 <br>
+                <!--b style=" text-align: center; font-size: 30px; color: rgb(70, 70, 70)"> "<b
+                    id="model_result">{{mbti_result}}</b>"<br></b-->
+                <b style=" text-align: center;  color: rgb(72, 34, 102)"><span id="viewtext2"></span>: "<b id="model_result">{{mbti_result}}</b>" <br></b>
+
+                <b class="window" style="color: rgb(105, 105, 105); font-weight: bold;">
+                    정확도: <span id="accur2"></span>
+                </b>
+
+
+                <b id="user_result" style="display: none">{{user_result}}</b> 
+            </div>
+            
+            <img class="window" style="vertical-align: middle" src="{{ url_for('static', filename=''.join([userid, '.jpg'])) }}" />
+
+        </div>
+
+
+        <div class="more" style="text-align: center; ">
+            <button class="cl" id="btn1"
+                style="font-family: 'Sunflower', sans-serif; margin-top: 20px; width: 80%; max-width: 300px; padding: 10px; font-size: 15px; border-style: solid; border-color: rgb(105, 57, 141); background-color: rgb(247, 239, 255); border-radius: 20px; color: rgb(105, 57, 141)"><b> 더
+                    알아보기 ↓</b></button>
+        </div>
+
+        <br><br><br><br><br>
+
+
+        <br>
+
+        <div class="fi" style="text-align: center;">
+
+            <div id="divscr" style="text-align: center">
+                <img class="pho" src="{{ url_for('static', filename=''.join(['image/', mbti_result, '.png'])) }}">
+                </div>
+
+
+
+            <!--form method="GET" action="/mbti">
+        <div>
+            <label for="char"></label>
+            <input type="text" name="char1">
+        </div>
+        </form-->
+
+            <div style="margin-top: 20px;">
+                <img class="finale" style="display: inline-block" src="{{url_for('static', filename='image/ponix.png')}}">
+                <div class="finale" style="display: inline-block; font-family: 'Poor Story', cursive; "> 가 들려주는 <b style="color: rgb(150, 0, 75)">MBTI</b> 이야기</div>
+            </div>
+
+            <div class="note1" style="text-align: initial; text-align:start; font-family: 'Poor Story', cursive;">
+                <span id="viewtext"></span>
+                <b style="color:rgb(150, 0, 75)">"<span id="viewtext2"></span>"</b>
+                <span id="viewtext3"></span>
+
+                <br>
+            </div>
+
+            <br>
+            <div style="text-align: center;">
+                <button class="cl" onclick="location.href='/'"
+                    style="padding-top: 10px; padding-bottom: 10px; padding-right: 20px; padding-left: 20px; border-radius: 20px; background-color:#114eb6; border-color: #a1c3ff; border-style: solid;">
+                    <b style="font-size: larger; font-family: 'Sunflower', sans-serif; color: #ffffff;">홈으로</b>
+                </button>
+
+                <br>
+                
+            </div>
+
+
+            
+            <br>
+            
+            <div style="text-align: center;">
+
+                <br><br>
+                <b class="b1" style="color:rgb(50, 50, 78)"> >> 다른 MBTI가 궁금해요! &lt;&lt; <br> 궁금한 MBTI 클릭하기<br> </b>
+        
+        
+                <div class="texttable" style="margin-top: 10px">
+                    <button onclick="window.open('ENFJ', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color: rgb(255, 72, 133);  background-color:rgb(255, 209, 225) ">
+                        ENFJ<p class="p1" style="color: rgb(255, 72, 133);  margin: 0px;">따뜻한 진취가</p>
+                    </button>
+        
+                    <button onclick="location.href='ENFJ'" class="textbox2"
+                        style="border-color: rgb(255, 72, 133);  background-color:rgb(255, 209, 225) ">
+                        ENFJ<p class="p1" style="color: rgb(255, 72, 133);  margin: 0px;">따뜻한 진취가</p>
+        
+                    </button>
+                    <button onclick="window.open('ENFP', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color: rgb(255, 68, 68);  background-color: rgb(255, 209, 209) ">
+                        ENFP<p class="p1" style="color: rgb(255, 68, 68);  margin: 0px;">지적인 지도자</p>
+                    </button>
+                    <button onclick="location.href='ENFP'" class="textbox2"
+                        style="border-color: rgb(255, 68, 68);  background-color: rgb(255, 209, 209) ">
+                        ENFP<p class="p1" style="color: rgb(255, 68, 68);  margin: 0px;">지적인 지도자</p>
+                    </button>
+                    <button onclick="window.open('ENTJ', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color: rgb(50, 173, 255);  background-color: rgb(204, 235, 255)">
+                        ENTJ<p class="p1" style="color: rgb(50, 173, 255);  margin: 0px;">정열적인<br>활동가</p>
+                    </button>
+                    <button onclick="location.href='ENTJ'" class="textbox2"
+                        style="border-color: rgb(50, 173, 255);  background-color: rgb(204, 235, 255)">
+                        ENTJ<p class="p1" style="color: rgb(50, 173, 255);  margin: 0px;">정열적인<br>활동가</p>
+                    </button>
+                    <button onclick="window.open('ENTP', '팝업창', 'width=500, height=700')" class="textbox "
+                        style="border-color: rgb(26, 134, 148);  background-color: rgb(219, 251, 255) ">
+                        ENTP<p class="p1" style="color: rgb(26, 134, 148);  margin: 0px;">다재다능한<br>혁명가</p>
+                    </button>
+                    <button onclick="location.href='ENTP'" class="textbox2 "
+                        style="border-color: rgb(26, 134, 148);  background-color: rgb(219, 251, 255) ">
+                        ENTP<p class="p1" style="color: rgb(26, 134, 148);  margin: 0px;">다재다능한<br>혁명가</p>
+                    </button>
+                </div>
+                <div class="texttable">
+                    <button onclick="window.open('INFJ', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color:rgb(125, 87, 197);  background-color: rgb(230, 202, 255) ">
+                        INFJ<p class="p1" style="color: rgb(125, 87, 197); margin: 0px;">이상적인<br> 평화주의자</p>
+                    </button>
+                    <button onclick="location.href='INFJ'" class="textbox2"
+                        style="border-color:rgb(125, 87, 197);  background-color: rgb(230, 202, 255) ">
+                        INFJ<p class="p1" style="color: rgb(125, 87, 197); margin: 0px;">이상적인<br> 평화주의자</p>
+                    </button>
+                    <button onclick="window.open('INFP', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color:  rgb(174, 74, 231);  background-color: rgb(239, 211, 255)">
+                        INFP<p class="p1" style="color: rgb(174, 74, 231);  margin: 0px;">낭만적인<br>중재자</p>
+                    </button>
+                    <button onclick="location.href='INFP'" class="textbox2"
+                        style="border-color:  rgb(174, 74, 231);  background-color: rgb(239, 211, 255)">
+                        INFP<p class="p1" style="color: rgb(174, 74, 231);  margin: 0px;">낭만적인<br>중재자</p>
+                    </button>
+                    <button onclick="window.open('INTJ', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color: rgb(68, 81, 255);  background-color: rgb(206, 210, 255) ">
+                        INTJ<p class="p1" style="color: rgb(68, 81, 255);  margin: 0px;">냉철한 전략가</p>
+                    </button>
+                    <button onclick="location.href='INTJ'" class="textbox2"
+                        style="border-color: rgb(68, 81, 255);  background-color: rgb(206, 210, 255) ">
+                        INTJ<p class="p1" style="color: rgb(68, 81, 255);  margin: 0px;">냉철한 전략가</p>
+                    </button>
+                    <button onclick="window.open('INTP', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color: rgb(76, 199, 221);  background-color:rgb(224, 241, 255)  ">
+                        INTP<p class="p1" style="color:  rgb(76, 199, 221);  margin: 0px;">논리적인<br>사색가</p>
+                    </button>
+                    <button onclick="location.href='INTP'" class="textbox2"
+                        style="border-color: rgb(76, 199, 221);  background-color:rgb(224, 241, 255)  ">
+                        INTP<p class="p1" style="color:  rgb(76, 199, 221);  margin: 0px;">논리적인<br>사색가</p>
+                    </button>
+                </div>
+        
+                <div class="texttable">
+                    <button onclick="window.open('ESFJ', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color: rgb(63, 197, 179);  background-color: rgb(208, 255, 249)  ">
+                        ESFJ<p class="p1" style="color:  rgb(63, 197, 179); margin: 0px;">친밀한 사교가</p>
+                    </button>
+                    <button onclick="location.href='ESFJ'" class="textbox2"
+                        style="border-color: rgb(63, 197, 179);  background-color: rgb(208, 255, 249)  ">
+                        ESFJ<p class="p1" style="color:  rgb(63, 197, 179); margin: 0px;">친밀한 사교가</p>
+                    </button>
+                    <button onclick="window.open('ESFP', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color: rgb(27, 173, 46);  background-color: rgb(191, 255, 204)">
+                        ESFP<p class="p1" style="color:  rgb(27, 173, 46);  margin: 0px;">흥이 넘치는<br>연예인</p>
+                    </button>
+                    <button onclick="location.href='ESFP'" class="textbox2"
+                        style="border-color: rgb(27, 173, 46);  background-color: rgb(191, 255, 204)">
+                        ESFP<p class="p1" style="color:  rgb(27, 173, 46);  margin: 0px;">흥이 넘치는<br>연예인</p>
+                    </button>
+                    <button onclick="window.open('ESTJ', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color: rgb(194, 88, 88);  background-color: rgb(255, 202, 202)">
+                        ESTJ<p class="p1" style="color: rgb(194, 88, 88); margin: 0px;">체계적인<br>사업가</p>
+                    </button>
+                    <button onclick="location.href='ESTJ'"class="textbox2"
+                        style="border-color: rgb(194, 88, 88);  background-color: rgb(255, 202, 202)">
+                        ESTJ<p class="p1" style="color: rgb(194, 88, 88); margin: 0px;">체계적인<br>사업가</p>
+                    </button>
+                    <button onclick="window.open('ESTP', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color: rgb(255, 132, 50);  background-color: rgb(255, 218, 194) ">
+                        ESTP<p class="p1" style="color: rgb(255, 132, 50); margin: 0px;">수완 좋은 <br> 모험가</p>
+                    </button>
+                    <button onclick="location.href='ESTP'" class="textbox2"
+                        style="border-color: rgb(255, 132, 50);  background-color: rgb(255, 218, 194) ">
+                        ESTP<p class="p1" style="color: rgb(255, 132, 50); margin: 0px;">수완 좋은 <br> 모험가</p>
+                    </button>
+                </div>
+                <div class="texttable">
+                    <button onclick="window.open('ISFJ', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color: rgb(67, 207, 62);  background-color:rgb(216, 253, 216)">
+                        ISFJ<p class="p1" style="color:  rgb(67, 207, 62);  margin: 0px;">믿음직한<br>동반자</p>
+                    </button>
+                    <button onclick="location.href='ISFJ'" class="textbox2"
+                        style="border-color: rgb(67, 207, 62);  background-color:rgb(216, 253, 216)">
+                        ISFJ<p class="p1" style="color:  rgb(67, 207, 62);  margin: 0px;">믿음직한<br>동반자</p>
+                    </button>
+                    <button onclick="window.open('ISFP', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color:  rgb(116, 168, 32);  background-color: rgb(227, 255, 182)">
+                        ISFP<p class="p1" style="color: rgb(116, 168, 32);  margin: 0px;">온화한 예술가</p>
+                    </button>
+                    <button onclick="location.href='ISFP'" class="textbox2"
+                        style="border-color:  rgb(116, 168, 32);  background-color: rgb(227, 255, 182)">
+                        ISFP<p class="p1" style="color: rgb(116, 168, 32);  margin: 0px;">온화한 예술가</p>
+                    </button>
+                    <button onclick="window.open('ISTJ', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color: rgb(175, 149, 63);  background-color: rgb(255, 244, 206)">
+                        ISTJ<p class="p1" style="color: rgb(175, 149, 63);  margin: 0px;">단정한 모범생</p>
+                    </button>
+                    <button onclick="location.href='ISTJ'" class="textbox2"
+                        style="border-color: rgb(175, 149, 63);  background-color: rgb(255, 244, 206)">
+                        ISTJ<p class="p1" style="color: rgb(175, 149, 63);  margin: 0px;">단정한 모범생</p>
+                    </button>
+                    <button onclick="window.open('ISTP', '팝업창', 'width=500, height=700')" class="textbox"
+                        style="border-color: rgb(224, 209, 0);  background-color: rgb(255, 251, 193)">
+                        ISTP<p class="p1" style="color: rgb(224, 209, 0);  margin: 0px;">재치있는<br>능력자</p>
+                    </button>
+                    <button onclick="location.href='ISTP'"class="textbox2"
+                        style="border-color: rgb(224, 209, 0);  background-color: rgb(255, 251, 193)">
+                        ISTP<p class="p1" style="color: rgb(224, 209, 0);  margin: 0px;">재치있는<br>능력자</p>
+                    </button>
+                </div>
+            </div>
+
+            
+            <footer class="ft" style="margin-top: 20px; color:rgb(216, 216, 216); padding: 5px; text-align: right; background-color:rgba(26, 26, 26, 0.775) ">
+                <div style="margin-left: 70%; text-align: left;">개발자
+                <br>포항공과대학교 | 선종엽 윤병준 이하은 김현주 <img class="ft" align="top";  src="{{url_for('static', filename='image/pos.png')}}">
+                <br>연세대학교 | 김준형 <img class="ft" align="top"; src="{{url_for('static', filename='image/yon.png')}}">
+                <br>
+                <br> 문의 | seonjongyeop@postech.ac.kr</div>
+            </footer>
+
+        </div>
+        <script>
+            var model_r = ""
+            $(document).ready(function () {
+
+                $('#btn1').click(function () {
+
+                    var offset = $('#divscr').offset(); //선택한 태그의 위치를 반환
+
+                    //animate()메서드를 이용해서 선택한 태그의 스크롤 위치를 지정해서 0.4초 동안 부드럽게 해당 위치로 이동함 
+
+                    $('html').animate({ scrollTop: offset.top }, 400);
+
+                });
+
+                });
+
+                var timer = setTimeout(function () {
+                $('div.fi').fadeIn(1000);
+                }, 2000);
+
+                //var answer = localStorage.getItem("mbti_model");
+
+
+                //document.write(answer);
+                localStorage.clear();
+                $(document).ready(function () {
+                var user = $("#user_result").text();
+                // var model_r = $("#model_result").text();
+                model_r = $("#model_result").text();
+                document.getElementById('accur').innerHTML = "<b style='color:  #8d3a6827;'> " + accuracy * 100 + "%</b>";
+                document.getElementById('accur2').innerHTML = "<b style='color:  #8d3a6827;'> " + accuracy * 100 + "%</b>";
+                var answer = model_r;
+                //console.log(user);
+                var output = user;
+
+                var count = 0;
+
+                for (i = 0; i < 4; i++) {
+                    if (output[i] == answer[i]) {
+                        count++;
+                    }
+                }
+
+                var accuracy = count / 4.0;
+
+                if (accuracy == 0) {
+                    document.getElementById('accur').innerHTML = "<b style='color:  #8d3a6827;'> " + accuracy * 100 + "%</b>";
+                    document.getElementById('accur2').innerHTML = "<b style='color:  #8d3a6827;'> " + accuracy * 100 + "%</b>";
+                } else if (accuracy == 0.25) {
+                    document.getElementById('accur').innerHTML = "<b style='color: #8d3a685e;'> " + accuracy * 100 + "%</b>";
+                    document.getElementById('accur2').innerHTML = "<b style='color: #8d3a685e;'> " + accuracy * 100 + "%</b>";
+                } else if (accuracy == 0.5) {
+                    document.getElementById('accur').innerHTML = "<b style='color: #8d3a6893;'> " + accuracy * 100 + "%</b>";
+
+                    document.getElementById('accur2').innerHTML = "<b style='color: #8d3a6893;'> " + accuracy * 100 + "%</b>";
+                } else if (accuracy == 0.75) {
+                    document.getElementById('accur').innerHTML = "<b style='color: #8d3a68c9'> " + accuracy * 100 + "%</b>";
+                    document.getElementById('accur2').innerHTML = "<b style='color: #8d3a68c9'> " + accuracy * 100 + "%</b>";
+                } else {
+                    document.getElementById('accur').innerHTML = "<b style='color: #8d3a68;'> " + accuracy * 100 + "%</b>";
+                    document.getElementById('accur2').innerHTML = "<b style='color: #8d3a68;'> " + accuracy * 100 + "%</b>";
+                }
+
+                if (model_r=="ENFJ"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("따뜻한 진취가");
+                $("span#viewtext3").text("상입니다. 인구의 대략 2%가 속하고, 국내에서는 1%로 희귀하나, 연예인 중에서는 약 10% 정도로 비교적 흔합니다. 따뜻하고, 적극적이며, 책임감이 강하고 사교성이 풍부하고 동정심이 많습니다. 또한, 호기심이 많고, 긍정적이며, 더 나은 세상을 만들기 위해 앞장서서 세상을 이끄는 것을 좋아합니다. 사회인격학의 쿼드라 그룹 모형으로는 Beta 그룹에 속하며, ISTP, ESTP, INFJ인 사람과 집단을 형성했을 때 가장 큰 심리적 편안함을 느낍니다. 가장 상극인 MBTI 유형은 ISTJ입니다. 대표적인 인물로는 강다니엘, 오프라 윈프리, 임시완 등이 있습니다.");  
+                }else if (model_r=="ENFP"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("정열적인 활동가");
+                $("span#viewtext3").text("상입니다. 전체 인구의 약 8.1%가 속하며, N형 중에는 가장 흔합니다. 따뜻하며, 창의적이고, 도전적이고, 상상력이 풍부하지만, 다소 충동적인 기질이 있으며 반복되는 일에 지루해 합니다. E형 중에는 다소 내향형이 강하며, 유연하고 진보적인 사고를 가졌습니다. 사회인격학 쿼드라 그룹 모형으로는 Delta 그룹에 속하고, ESTJ, ISTJ, INFP인 사람과 집단을 형성했을 때 가장 큰 심리적 편안감을 느끼는 반면, ISTP와는 상극입니다. 대표적인 인물로는 로버트 다우니주니어, 구혜선, 하지원 등이 있습니다.");  
+                }else if (model_r=="ENTJ"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("지적인 지도자");
+                $("span#viewtext3").text("상입니다. 전제 인구의 1.8%로 적지만, 영향력은 큽니다. 활기차서 사교성이 좋으며, 지도력과 통솔력, 거시적인 안목이 뛰어납니다. 때때로 완벽을 추구하고, 계획을 세우고 실행하는 것을 중요시하며, 사람보다 일을 중요시합니다. 사회인격학의 쿼드라 그룹 모형에 따르면 Gamma 그룹에 속하며, ESFP, ISFP, INTJ와 그룹을 형성했을 때 가장 큰 심리적 편안함을 느끼지만, ISFJ와는 상극입니다. 대표적인 인물로는 박정희 전 대통령, 소녀시대 서현, 배우 김영철 등이 있습니다");  
+                }else if (model_r=="ENTP"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("다재다능한 혁명가");
+                $("span#viewtext3").text("상입니다. 전체 인구의 3.2%로 적고, 국내는 2%로 더 적습니다. 박식하며, 창의성이 넘치고, 혁명가적 기질을 타고났습니다. 다재다능하고 토론을 좋아하며, 항상 다양하고 색다른 환경에서의 업무를 선호합니다. 사회인격학의 쿼드라 그룹 모형에 따르면 Alpha 그룹에 속하며, ISFJ, ESFJ, INTP인 사람과 집단을 형성했을 때 가장 큰 심리적 편안감을 느끼는 반면, ISFP와는 상극입니다. 대표적인 인물로는 버락 오바마, 유튜버 잇섭, G드래곤 등이 있습니다.");  
+                }else if (model_r=="INFJ"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("이상적인 평화주의자");
+                $("span#viewtext3").text("상입니다. ENFJ와 함께 소수의 유형으로, 전 세계 1.5%를 차지합니다. 공감능력이 뛰어나고 관찰력, 통찰력이 뛰어나 눈치가 빠른 편입니다. 인내심이 많고 배려가 습관화되어 있으며, 분쟁과 다툼을 싫어하고 내적 독립심이 강해 정신적 지도자들이 많습니다. 현실적이며 문제를 해결하는 능력이 뛰어나고, 센스가 있으며 어디서든 적응을 잘 합니다. 쿼드라 그룹 모형에 따르면 Beta 그룹에 속하며 ESTP, ENFJ, ISTP인 사람들과 집단을 형성했을 때 가장 큰 심리적 편안함을 느끼며, ESTJ와는 상극입니다. 대표적인 인물로는 모건 프리먼, 태연, 태양 등이 있습니다.");  
+                }else if (model_r=="INFP"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("낭만적인 중재자");
+                $("span#viewtext3").text("상입니다. 공상적, 정열적, 목가적, 낭만적입니다. 마음이 따뜻하고 조용하며 책임감이 강하고 성실합니다. 이상에 대한 정열적인 신념을 지녔으며, 경쟁이나 지배욕은 적은 편입니다. 소수나 사회적 약자의 처지를 공감하고 이해심이 뛰어나나, 지속적으로 화를 참고 넘어 가는 것이 되려 정신 건강을 해칠 수 있습니다. 쿼드라 그룹 모형에 따르면 Delta 그룹에 속해 ENFP, ESTJ, ISTJ인 사람들과 집단을 형성했을 때 가장 큰 심리적 편안함을 느끼며, ESTP와는 상극입니다. 대표적인 인물로는 아이유, 조니 뎁, 존 레논 등이 있습니다.");  
+                }else if (model_r=="INTJ"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("냉철한 전략가");
+                $("span#viewtext3").text("상입니다. 세계 인구의 약 2%를 차지하며, 일반적으로 2~3번째로 희귀한 유형입니다. 가장 독립심이 강하고, 냉철하며, 객관적이며, '사회적 현실'보단 '과학적 현실'을 중시합니다. 복잡한 사고 활동을 즐기며 완벽을 추구하고, 인간관계에 크게 연연하지 않습니다.  쿼드라 그룹 모형에 따르면 Gamma 그룹에 속해 ENTJ, ESFP, ISFP인 사람들과 집단을 형성했을 때 가장 큰 심리적 편안함을 느끼며, ESFJ와는 상극입니다. 대표적인 인물로는 스티븐 호킹, 제임스 카메론, 서태지 등이 있습니다.");  
+                }else if (model_r=="INTP"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("논리적인 사색가");
+                $("span#viewtext3").text("상입니다. 전체 인구의 약 3.3%를 차지하며, 한국인의 약 3%가 속합니다. 조용하고 과묵하며, 논리적, 분석적이어서 자연과학 등의 분야에서 능력을 발휘합니다."+
+                " 혼자만의 시간을 중시하며, 내향적인 면과 지적인 면이 매우 뚜렷하게 드러나고, 자아 분석을 좋아합니다. 쿼드라 그룹 모형에 따르면 Alpha 그룹에 속해 ESFJ, ENTP, ISFJ인 사람들과 집단을 형성했을 때 가장 큰 심리적 편안함을 느끼며, ESFP와는 상극입니다. "+
+                "대표적인 인물로는 정은지, BTS 진, 타일러 등이 있습니다.");  
+                }else if (model_r=="ESFJ"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("친밀한 사교가");
+                $("span#viewtext3").text("상입니다. 일반적으로 인구 비율 순위에서 최상위권을 차지하는 등, MBTI 유형 중 흔한 편에 속합니다. 동정심이 많고 사회성이 풍부하며, 현실적이고, 타고난 협력자로 동료애가 많고, 친절하고 능동적입니다. 참을성이 많고 다른 사람을 잘 도와주어 간호와 의료 분야에도 적합합니다. 사회인격학의 쿼드라 그룹 모형에 따르면 Alpha 그룹에 속하며, ENTP, ISFJ, INTP와 집단을 형성했을 때 가장 큰 심리적 편안감을 느낍니다. 대표적인 인물로는 빌 클린턴, 제니퍼 로페즈, 방송인 김성주 등이 있습니다.");  
+                }else if (model_r=="ESFP"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("흥이 넘치는 연예인");
+                $("span#viewtext3").text("상입니다. 사교적이고, 현실적이고, 낙천적이며, 적응력이 뛰어납니다. 다소 수다스러우나 그 덕분에 공동체에서 밝은 분위기를 조성하는 역할을 합니다. 사회인격학의 쿼드라 그룹 모형에 따르면 Gamma 그룹에 속하며, ISFP, ENTJ, INTJ와 집단을 형성했을 때 가장 큰 심리적 편안감을 느끼고, INTP와는 상극입니다. 대표적인 인물로는 비욘세, 레오나르도 디카프리오, 가수 비 등이 있습니다.");  
+                }else if (model_r=="ESTJ"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("체계적인 사업가");
+                $("span#viewtext3").text("상입니다. MBTI 유형 중 매우 흔한 편으로, 유형별 인구 비율 순위에서 항상 4위 안에 속하며, 대한민국에서는 15%로 ISTJ 다음으로 흔합니다. 현실적, 구체적이며 일을 조직하고 계획, 추진시키는 능력이 뛰어납니다. 기계 분야나 행정 분야에 재능을 지녔으나, 속단 속결과 지나치게 업무 위주인 면도 있습니다. 사회인격학의 쿼드라 그룹 모형에 따르면 Delta 그룹에 속하며, ENFP, ISTJ, INFP와 집단을 형성했을 때 가장 큰 심리적 편안감을 느끼고 INFJ와는 상극입니다. 대표적인 인물로는 엠마 왓슨, 김태희, 백종원 등이 있습니다.");  
+                }else if (model_r=="ESTP"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("수완 좋은 모험가");
+                $("span#viewtext3").text("상입니다. 현실적이며 문제를 해결하는 능력이 뛰어나고, 센스가 있으며 어디서든 적응을 잘 합니다. 관대하고 개방적이어서 사물에 대한 선입견도 없는 편입니다. 오감으로 삶을 즐기는 유형이며, 연장을 다루는데 익숙한 반면 추상적인 아이디어에는 관심이 없습니다. 사회인격학의 쿼드라 그룹 모형에 따르면 Beta 그룹에 속하며, ENFJ, ISTP, INFJ인 사람들과 집단을 형성했을 때 가장 큰 심리적 편안함을 느끼며, INFP와 상극입니다. 대표적인 인물로는 마돈나, 새뮤얼 L 잭슨, 비투비 정일훈 등이 있습니다.");  
+                }else if (model_r=="ISFJ"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("믿음직한 동반자");
+                $("span#viewtext3").text("상입니다. 조용하고 차분하며, 친근하고 책임감과 인내력이 강합니다. 본인이 존경하거나 좋아하는 사람에 대해서 충성심과 애정이 가득합니다. 항상 진솔하기에 인간관계를 맺기에 더없이 믿음직스러운 유형입니다. I형 중엔 가장 외향성이 강하며, 일을 협조적으로 처리합니다."+
+                " 쿼드라 그룹 모형에 따르면 Alpha 그룹에 속해 ESFJ, ENTP, INTP인 사람들과 집단을 형성했을 때 가장 큰 심리적 편안함을 느끼며, ENTJ와는 상극입니다."+
+                " 대표적인 인물로는 엘리자베스 2세, 앤 해서웨이, TWICE 다현 등이 있습니다.");  
+                }else if (model_r=="ISFP"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("온화한 예술가");
+                $("span#viewtext3").text("상입니다. 다정하고, 온화하고, 친절하고 겸손합니다. 전형적인 '착한 사람'의 이미지를 풍기는 유형이어서 우유부단한 면도 있습니다. "+
+                "문학, 음악, 미술 분야에 어울리며, 사회 봉사 직종에도 어울립니다. S와 N, E와 I, J와 P 와의 균형이 모든 유형 중 가장 고릅니다. 쿼드라 그룹 모형에 따르면 Gamma 그룹에 속해 ENTJ, ESFP, INTJ인 사람들과 집단을 형성했을 때 가장 큰 심리적 편안함을 느끼며, ENTP와는 상극입니다."+
+                " 대표적인 인물로 데이비드 베컴, 유재석, 양세찬 등이 있습니다.");  
+                }else if (model_r=="ISTJ"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("단정한 모범생");
+                $("span#viewtext3").text("상입니다. MBTI 중 흔한 유형으로 인구의 약 11.6%가 해당합니다. 단정하고, 보수적인 경향이 있으며, 인내심이 강하고 조직적, 체계적이어서 겉으로 차가워보이기도 합니다. 신중하고 책임감이 강하며, 규칙을 잘 준수하여 회사, 공공기관 근무에 어울리고 학교 선생님들이 좋아하는 유형입니다. 쿼드라 그룹 모형에 따르면 Delta 그룹에 속해 ENFP, ESTJ, INFP인 사람들과 집단을 형성했을 때 가장 큰 심리적 편안함을 느끼며, ENFJ와는 상극입니다. 대표적인 인물로 워렌 버핏, 조지 W 부시, 차태현 등이 있습니다.");  
+                }else if (model_r=="ISTP"){
+                $("span#viewtext").text("당신은 "); 
+                $("span#viewtext2").text("재치있는 능력자");
+                $("span#viewtext3").text("상입니다. 과묵하며 손재주가 있는 전형적인 장인이나 기능공 스타일의 성격을 가지며, 운동에 재능이 있기도 합니다. 조용하고, 과묵하며, 도구를 다루는 능력이 뛰어나고, 객관적입니다. 현실 감각이 뛰어나 임기응변에 능하고, 고정관념이 없으나, 개인주의 성향이 있고, 타인의 일에 무관심한 편입니다. 쿼드라 그룹 모형에 따르면 Beta 그룹에 속해 ENFJ, ESTP, INFJ인 사람들과 집단을 형성했을 때 가장 큰 심리적 편안함을 느끼며, ENFP와는 상극입니다. 대표적인 인물로 김연아, 톰 크루즈, TWICE 나연 등이 있습니다.");  
+                }
+            });
+
+
+        </script>
+        
+</body>
+
+</html>

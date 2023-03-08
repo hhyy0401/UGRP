@@ -1,0 +1,102 @@
+<!doctype html>
+
+<html lang="ko">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        AI로 MBTI 예측하기
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="">
+    <link rel="shortcut icon" href=""><!-- 파비콘 아이콘 -->
+
+    <!--script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script type="text/javascript">
+
+    $(function(){//제이쿼리 시작
+    });
+    </script-->
+
+
+</head>
+
+
+
+<body>
+
+    <div id="wrap">
+
+        <style>
+            @media all and (max-width: 350px) {
+                body {
+                    margin-top: 20px;
+                    font-size: 80%;
+                    
+                }
+            }
+            @media all and (min-width: 350px) and (max-width: 768px) {
+                body {
+                    margin-top: 50px;
+                    
+                }
+            }
+            @media all and (min-width: 768px) and (max-width: 1024px) {
+                body {
+                    margin-top: 100px;
+                }
+            }
+
+            @media all and (min-width: 1024px) and (max-width: 1280px) {
+                body {
+                    margin-top: 200px;
+                    font-size: 120%;
+                }
+            }
+
+            @media all and (min-width: 1280px) {
+                body {
+                    margin-top: 200px;
+                }
+            }
+        </style>
+
+        <div class="dis" style="text-align: center;">
+            <h2>인상으로<br>MBTI 알아보기</h2>
+
+            <p style="color:rgb(92, 92, 92)">
+                AI가 파악한 내 얼굴에 따른 MBTI는?
+            </p>
+
+
+        </div>
+
+        <div style="text-align: center">
+            <img src="{{url_for('static', filename='image/image1.png')}}">
+        </div>
+
+        <div style="text-align: center">
+            <br>
+            <br>
+
+            <button onclick="location.href='agree'"
+                style="border-radius: 70px; background-color:#114eb6; border-color: #a1c3ff; border-style: solid;">
+                <h3 style="color: #ffffff; margin-left: 20px; margin-right: 20px;"> 얼굴로 MBTI 알아보기 </h3>
+            </button>
+
+            <p style="color: rgb(116, 116, 116); font-size: smaller;">
+                2020_POSTECH-Yonsei_ugrp
+            </p>
+        </div>
+
+
+
+    </div>
+
+</body>
+
+</html>

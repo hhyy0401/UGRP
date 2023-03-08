@@ -1,0 +1,617 @@
+<!doctype html>
+
+<html lang="ko">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5K2V9ZNPEK"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-5K2V9ZNPEK');
+    </script>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        인공지능 MBTI
+    </title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="">
+    <link rel="shortcut icon" href="{{url_for('static', filename='image/image1.png')}}">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+    <script type="text/javascript">
+
+        jQuery(function ($) {
+            $("body").css("display", "none");
+            $("body").fadeIn(700);
+            $("a.transition").click(function (event) {
+                event.preventDefault();
+                linkLocation = this.href;
+                $("body").fadeOut(700, redirectPage);
+            });
+            function redirectPage() {
+                window.location = linkLocation;
+            }
+        });
+
+    </script>
+    
+    <style>
+        .subtitle {
+            margin-top: 30px;
+            margin-left: 10px;
+            color: #2F5597;
+            font-weight: 700;
+        }
+        .cl:hover{
+            opacity: 50%;
+        }
+        .textbox2:hover{
+            opacity: 50%;
+        }
+    </style>
+
+    <style>
+        @media all and (max-width: 350px) {
+            .dis1 {
+                font-size: 60%;
+            }
+            img.dis1{
+                width: 50%;
+                height: auto;
+                margin-top: 20px; margin-bottom: 20px;
+            }
+
+            div.textbox {
+                display: table-cell;
+                width: 30px;
+                height: 30px;
+                background: #ffffff;
+                font-size: 21px;
+                text-align: center;
+                color: #67709e;
+                font-weight: bold;
+                border: 1.8px solid rgba(187, 187, 187, 0.589);
+                box-shadow: 0 0 5.4px rgb(221, 221, 221);
+                border-radius: 7.5px;
+                border-spacing: 1.5px;
+                border-collapse: separate;
+                justify-content: space-between;
+                margin: auto;
+            }
+
+            .textbox2 {
+                display: table-cell;
+                width: 30px;
+                height: 30px;
+                background: #ffffff00;
+                font-size: 21px;
+                text-align: center;
+                color: #67709e;
+                font-weight: bold;
+                border: 1.8px solid rgba(187, 187, 187, 0);
+                border-radius: 7.5px;
+                border-spacing: 1.5px;
+                border-collapse: separate;
+                justify-content: space-between;
+                margin: auto;
+            }
+
+            div.texttable {
+                display: flex;
+                border-spacing: 1.5px;
+                height: 45px;
+                margin: 1.5px;
+                width: 150px;
+                margin: auto;
+            }
+
+            b.mar{
+                margin: 7px;
+            }
+
+            button#inputE {
+                font-size: 21px;
+                width: 30px;
+                height: 30px;
+            }
+
+            button#inputI {
+                font-size: 21px;
+                width: 30px;
+                height: 30px;
+            }
+
+            button#inputN {
+                font-size: 21px;
+                width: 30px;
+                height: 30px;
+            }
+
+            button#inputS {
+                font-size: 21px;
+                width: 30px;
+                height: 30px;   
+            }
+
+            button#inputT {
+                font-size: 21px;
+                width: 30px;
+                height: 30px;
+            }
+
+            button#inputF {
+                font-size: 21px;
+                width: 30px;
+                height: 30px;
+            }
+
+            button#inputP {
+                font-size: 21px;
+                width: 30px;
+                height: 30px;
+            }
+
+            button#inputJ {
+                font-size: 21px;
+                width: 30px;
+                height: 30px;
+            }
+
+            button#submit1 {
+                font-size: 30%;
+                margin-right: 15%
+            }
+        }
+
+        @media all and (min-width: 350px) and (max-width: 768px) {
+            .dis1 {
+                font-size: 90%;    
+            }
+            img.dis1{
+                width: 50%;
+                height: auto;
+                margin-top: 25px; margin-bottom: 25px;
+            }
+            
+            
+            div.textbox {
+                display: table-cell;
+                width: 60px;
+                height: 60px;
+                background: #ffffff;
+                font-size: 42px;
+                text-align: center;
+                color: #67709e;
+                font-weight: bold;
+                border: 3px solid rgba(187, 187, 187, 0.589);
+                box-shadow: 0 0 16px rgb(221, 221, 221);
+                border-radius: 15px;
+                border-spacing: 3px;
+                border-collapse: separate;
+                justify-content: space-between;
+                margin: auto;
+            }
+
+            .textbox2 {
+                display: table-cell;
+                width: 60px;
+                height: 60px;
+                background: #ffffff00;
+                font-size: 42px;
+                text-align: center;
+                color: #67709e00;
+                font-weight: bold;
+                border: 3px solid rgba(187, 187, 187, 0);
+                border-radius: 15px;
+                border-spacing: 3px;
+                border-collapse: separate;
+                justify-content: space-between;
+                margin: auto;
+            }
+
+            div.texttable {
+                display: flex;
+                border-spacing: 3px;
+                height: 90px;
+                margin: 6px;
+                width: 300px;
+                margin: auto;
+            }
+            b.mar{
+                margin: 14px;
+            }
+            button#inputE {
+                font-size: 42px;
+                width: 60px;
+                height: auto;
+            }
+
+            button#inputI {
+                font-size: 42px;
+                width: 60px;
+                height: auto;
+            }
+
+            button#inputN {
+                font-size: 42px;
+                width: 60px;
+                height: auto;
+            }
+
+            button#inputS {
+                font-size: 42px;
+                width: 60px;
+                height: auto;
+            }
+
+            button#inputT {
+                font-size: 42px;
+                width: 60px;
+                height: auto;
+            }
+
+            button#inputF {
+                font-size: 42px;
+                width: 60px;
+                height: auto;
+            }
+
+            button#inputP {
+                font-size: 42px;
+                width: 60px;
+                height: auto;
+            }
+
+            button#inputJ {
+                font-size: 42px;
+                width: 60px;
+                height: auto;
+            }
+            button#submit1 {
+                font-size: 60%;
+                margin-right: 15%
+            }
+        }
+
+        @media all and (min-width: 768px) {
+            .dis1 {
+                font-size: 100%;
+                margin-top: 20px; margin-bottom: 20px;
+            }
+            img.dis1{
+                width: 300px;
+                height: auto;
+            }
+            div.textbox {
+                display: table-cell;
+                width:80px;
+                height: 80px;
+                background: #ffffff;
+                font-size: 56px;
+                text-align: center;
+                color: #67709e;
+                font-weight: bold;
+                border: 3px solid rgba(187, 187, 187, 0.589);
+                box-shadow: 0 0 16px rgb(221, 221, 221);
+                border-radius: 20px;
+                border-spacing: 4px;
+                border-collapse: separate;
+                justify-content: space-between;
+                margin: auto;
+            }
+
+            .textbox2 {
+                display: table-cell;
+                width:80px;
+                height: 80px;
+                background: #ffffff00;
+                font-size: 56px;
+                text-align: center;
+                color: #67709e;
+                font-weight: bold;
+                border: 3px solid rgba(187, 187, 187, 0);
+                border-radius: 20px;
+                border-spacing: 4px;
+                border-collapse: separate;
+                justify-content: space-between;
+                margin: auto;
+            }
+
+            div.texttable {
+                display: flex;
+                border-spacing: 4px;
+                height: 120px;
+                margin: 8px;
+                width: 400px;
+                margin: auto;
+            }
+            b.mar{
+                margin: 28px;
+            }
+            button#inputE {
+                font-size: 56px;
+                width: 80px;
+                height: auto;
+            }
+
+            button#inputI {
+                font-size: 56px;
+                width: 80px;
+                height: auto;
+            }
+
+            button#inputN {
+                font-size: 56px;
+                width: 80px;
+                height: auto;
+            }
+
+            button#inputS {
+                font-size: 56px;
+                width: 80px;
+                height: auto;
+            }
+
+            button#inputT {
+                font-size: 56px;
+                width: 80px;
+                height: auto;
+            }
+
+            button#inputF {
+                font-size: 56px;
+                width: 80px;
+                height: auto;
+            }
+
+            button#inputP {
+                font-size: 56px;
+                width: 80px;
+                height: auto;
+            }
+
+            button#inputJ {
+                font-size: 56px;
+                width: 80px;
+                height: auto;
+            }
+            button#submit1 {
+                margin-right: 20%
+            }
+
+        }
+
+
+            
+        body {
+
+            font-size: larger;
+            background-image:url("{{url_for('static', filename='image/checkfi.jpg')}}" ) ;
+
+        }
+        
+    </style>
+
+
+
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+</head>
+
+
+
+<body>
+
+    <div id="wrap">
+
+        <div class="subtitle" style="font-family: 'Sunflower', sans-serif;">
+            AI가 MBTI 계산을 완료하였습니다.
+
+            <div style="text-align: center; margin-top: 20px">
+                <img class="dis1" src="{{url_for('static', filename='image/pho1.png')}}" style="max-width: 300px;">
+            </div>
+        </div>
+
+
+        <div class="dis1" style="text-align: center; font-family: 'Sunflower', sans-serif; ">
+            <b style="color: #444b52"> 정확도 측정을 위해 당신의 <b style="color:#3362b3">MBTI</b>를 입력해 주세요<b
+                    style="color: #8a8c8f"><br>(알파벳을 클릭해주세요)</b>.</b>
+        </div>
+        <br>
+        <div class="texttable ">
+            <div class="textbox" id="viewtext1"></div>
+            <div class="textbox" id="viewtext2"></div>
+            <div class="textbox" id="viewtext3"></div>
+            <div class="textbox" id="viewtext4"></div>
+        </div>
+        <b id="user_info" style="display: none">{{user_info}}</b>
+
+        <!--div style="text-align: center; ">
+            <button onclick="location.href='input'" style="border:0;background-color: white;"> <img
+                    style="width: 50px; height: 50px;" src="{{url_for('static', filename='image/reset.png')}}"></button><br>
+            <button onclick="location.href='input'" style="border:0;background-color: white;"> <b
+                    style="color: rgb(104, 104, 104);"> 초기화 </b></button>
+        </div-->
+
+
+        <b style="margin-top: 10px;"></b>
+        <div class="texttable">
+
+            <button class="textbox2"  id="inputE" style="border-style: solid; background-color: #ffffff00; border: #ffffff00; "><b
+                style="color: #67709e;">E</b></button>
+            <button class="textbox2"  id="inputN" style="border-style: solid; background-color: #ffffff00; border: #ffffff00; "><b
+                    style="color: #67709e">N</b></button>
+            <button  class="textbox2" id="inputT" style="border-style: solid; background-color: #ffffff00; border: #ffffff00;"><b
+                    style="color: #67709e">T</b></button>
+            <button  class="textbox2" id="inputP" style="border-style: solid; background-color: #ffffff00; border: #ffffff00;"><b
+                    style="color: #67709e">P</b></button>
+        </div>
+
+        <div class="texttable">
+
+            <button class="textbox2" id="inputI" style="border-style: solid; background-color: #ffffff00; border: #ffffff00; "><b
+                    style=" color: #67709e;">I</b></button>
+            <button class="textbox2" id="inputS" style="border-style: solid; background-color: #ffffff00; border: #ffffff00;"><b
+                    style=" color: #67709e">S</b></button>
+            <button class="textbox2" id="inputF" style="border-style: solid; background-color: #ffffff00; border: #ffffff00; "><b
+                    style=" color: #67709e">F</b></button>
+            <button class="textbox2" id="inputJ" style="border-style: solid; background-color: #ffffff00; border: #ffffff00; "><b
+                    style="color: #67709e">J</b></button>
+
+
+        </div>
+        <!--div style="text-align: right; margin-right: 30%;">
+            <b style="display: none;" id="mbti_model">INTP</b>
+            
+            <button id="mbticheck" onclick="location.href='result'"
+                style="border-color: #ffffff; background-color: #ffffff; border-style: solid; color: #3362b3"><b>제출</b></button>
+            
+
+        </div-->
+
+
+        <!--form method="post" name="submit_form" action="result">
+
+            <input type="hidden" name="mbti_input" value="">
+
+
+
+        </form-->
+        <div class="dis1" style="text-align: right; ">
+            <button class="cl" id="submit1"
+                style="text-align: right;  border-radius: 15px; border-color:#cbd3ff; padding-top: 5px; padding-bottom: 5px; padding-right: 15px; 
+                padding-left: 15px; background-color: #223075; border-style: solid; color: #ffffff; font-size: 15px "><b>제출</b></button>
+        </div>
+
+
+        <!--form method="GET" action="/mbti" style=" text-align: right; margin-right: 30%;">
+            <div>
+                <label for="char"></label>
+                <input type="text" name="char">
+                
+            </div>
+        </form-->
+
+
+        <script type="text/javascript">
+            var mbti1 = null;
+            var mbti2 = null;
+            var mbti3 = null;
+            var mbti4 = null;
+
+            $("button#inputE").click(function () {
+                $("div#viewtext1").text("E");
+                mbti1 = "E";//$('viewtext1').text();
+                //mbti = mbti1 + mbti2 + mbti3 + mbti4;
+            });
+
+            $("button#inputI").click(function () {
+                $("div#viewtext1").text("I");
+                mbti1 = "I";//$('viewtext1').text();
+                // mbti = mbti1 + mbti2 + mbti3 + mbti4;
+            });
+
+            $("button#inputN").click(function () {
+                $("div#viewtext2").text("N");
+                mbti2 = "N";//$('viewtext2').text();
+                // mbti = mbti1 + mbti2 + mbti3 + mbti4;
+            });
+
+            $("button#inputS").click(function () {
+                $("div#viewtext2").text("S");
+                mbti2 = "S";//$('viewtext2').text();
+                //mbti = mbti1 + mbti2 + mbti3 + mbti4;
+            });
+
+            $("button#inputT").click(function () {
+                $("div#viewtext3").text("T");
+                mbti3 = "T";//$('viewtext3').text();
+                //mbti = mbti1 + mbti2 + mbti3 + mbti4;
+            });
+            $("button#inputF").click(function () {
+                $("div#viewtext3").text("F");
+                mbti3 = "F";//$('viewtext3').text();
+                // mbti = mbti1 + mbti2 + mbti3 + mbti4;
+            });
+            $("button#inputP").click(function () {
+                $("div#viewtext4").text("P");
+                mbti4 = "P";//$('viewtext4').text();
+                // mbti = mbti1 + mbti2 + mbti3 + mbti4;
+            });
+            $("button#inputJ").click(function () {
+                $("div#viewtext4").text("J");
+                mbti4 = "J";//$('viewtext4').text();
+                // mbti = mbti1 + mbti2 + mbti3 + mbti4;
+            });
+
+
+        </script>
+
+        <form action="/mbti" method="post" name="mbtiForm" style="display: none">
+            <input type="text" name="usermbti" id="submitmbti">
+            <input type="text" name="userinfo" id="submitmbti2">
+            <input type="submit" value="Submit">
+
+        </form>
+
+        <!--script>
+            //이 스크립트는 1초마다 확인해야 함.
+
+            var show = document.getElementsByName("submit_form");
+
+            var model = $("#mbti_model").text();
+            console.log(model);
+
+            show[0].style.display = "none";
+
+            //var isStop = false;
+
+            var timer = setInterval(function () {
+
+                console.log(12345);
+
+                if (model == "") {
+                    console.log(1111111);
+                }
+                else {
+                    localStorage.clear();
+                    localStorage.setItem("mbti_model", model);
+                    console.log(document.getElementById("mbti_model").value);
+
+                    setTimeout(function () {
+                        show[0].style.display = "block";
+                    }, 1000);
+
+
+
+                    //로딩 gif 완료로 바꾸기
+                    clearInterval(timer);
+                    //form tag를 통해서 mbti1+mbti2+mbti3+mbti4 을 서버에 전송
+                    //jquery 통해서 button 보이게 하기
+
+                }
+
+            }, 1000)
+            
+
+        </script-->
+        <script>
+        $("button#submit1").click(function () {
+            var user_name = localStorage.getItem("user_id");
+            console.log(user_name)
+            document.getElementById("submitmbti").value = mbti1 + mbti2 + mbti3 + mbti4;
+            document.getElementById("submitmbti2").value = user_name;
+            document.mbtiForm.submit();
+        });
+        </script>
+
+
+
+</body>
+
+</html>

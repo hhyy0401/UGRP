@@ -1,0 +1,355 @@
+<!doctype html>
+
+<html lang="ko">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        AI로 MBTI 예측하기
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="">
+    <link rel="shortcut icon" href=""><!-- 파비콘 아이콘 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+
+    <style>
+        @media all and (max-width: 400px) {
+            body {
+                margin-top: 40px;
+                font-size: 80%;
+
+            }
+
+            button.textbox2 {
+                width: 65px;
+                height: 65px;
+                border-radius: 10px;
+                border-spacing: 1px;
+                padding: 1px;
+                margin: 2.5px;
+                padding-top: 5px;
+                font-size: 14px;
+                display: table-cell;
+            }
+
+            button.textbox {
+                display: none;
+            }
+
+            button.texttable {
+                border-spacing: 1px;
+            }
+
+            .p1 {
+                font-size: 4px;
+            }
+
+        }
+
+        @media all and (min-width: 400px) and (max-width: 750px) {
+            body {
+                margin-top: 40px;
+                font-size: 80%;
+
+            }
+
+            button.textbox2 {
+                width: 75px;
+                height: 75px;
+                border-radius: 10px;
+                border-spacing: 2px;
+                padding: 2px;
+                margin: 2.5px;
+                padding-top: 5px;
+                font-size: 21px;
+                display: table-cell;
+            }
+
+            button.textbox {
+                display: none;
+            }
+
+            button.texttable {
+                border-spacing: 1px;
+            }
+
+            .p1 {
+                font-size: 4px;
+            }
+        }
+
+        @media all and (min-width: 750px) and (max-width: 1024px) {
+            body {
+                margin-top: 40px;
+
+            }
+
+            .b1 {
+                font-size: 30px;
+            }
+
+            button.textbox {
+                width: 120px;
+                height: 120px;
+                border-radius: 10px;
+                border-spacing: 2px;
+                padding: 2px;
+                margin: 2.5px;
+                padding-top: 5px;
+                font-size: 40px;
+                display: table-cell;
+            }
+
+            button.textbox2 {
+                display: none;
+            }
+
+            button.texttable {
+                border-spacing: 1px;
+            }
+
+            .p1 {
+                font-size: 10px;
+            }
+        }
+
+        @media all and (min-width: 1024px) {
+
+            .b1 {
+                font-size: 40px;
+            }
+
+            button.textbox {
+                width: 120px;
+                height: 120px;
+                border-radius: 10px;
+                border-spacing: 2px;
+                padding: 2px;
+                margin: 5px;
+                padding-top: 10px;
+                font-size: 40px;
+                display: table-cell;
+            }
+
+            button.textbox2 {
+                display: none;
+            }
+
+            button.texttable {
+                border-spacing: 2px;
+            }
+
+            .p1 {
+                font-size: 10px;
+            }
+        }
+
+
+        button.textbox {
+            background: #ffffff;
+            color: #4d4d4d;
+            font-weight: bold;
+            border: 2.4px solid rgb(187, 187, 187);
+            justify-content: space-between;
+            text-align: center;
+            font-family: 'Sunflower', sans-serif;
+            
+            border-style: double;
+        }
+
+        button.textbox2 {
+            background: #ffffff;
+            color: #4d4d4d;
+            font-weight: bold;
+            border: 2.4px solid rgb(187, 187, 187);
+            justify-content: space-between;
+            text-align: center;
+            font-family: 'Sunflower', sans-serif;
+
+            border-style: double;
+        }
+
+        button.textbox:hover{
+            opacity: 50%;
+        }
+        button.textbox2:hover{
+            opacity: 50%;
+        }
+
+        div.texttable {
+            text-align: center;
+            display: flex;
+            justify-content: center;
+
+        }
+
+        body {
+            background-image:url("{{url_for('static', filename='image/checkfi.jpg')}}");
+            font-size: larger;
+            font-family: 'Sunflower', sans-serif;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+    <div style="text-align: center;">
+
+        <br>
+        <b class="b1" style="color:rgb(50, 50, 78)">궁금한 MBTI 클릭하기!<br> </b>
+
+
+        <div class="texttable" style="margin-top: 10px">
+            <button onclick="window.open('ENFJ.html', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color: rgb(255, 72, 133);  background-color:rgb(255, 209, 225) ">
+                ENFJ<p class="p1" style="color: rgb(255, 72, 133);  margin: 0px;">따뜻한 진취가</p>
+            </button>
+
+            <button onclick="location.href='ENFJ'" class="textbox2"
+                style="border-color: rgb(255, 72, 133);  background-color:rgb(255, 209, 225) ">
+                ENFJ<p class="p1" style="color: rgb(255, 72, 133);  margin: 0px;">따뜻한 진취가</p>
+
+            </button>
+            <button onclick="window.open('ENFP', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color: rgb(255, 68, 68);  background-color: rgb(255, 209, 209) ">
+                ENFP<p class="p1" style="color: rgb(255, 68, 68);  margin: 0px;">지적인 지도자</p>
+            </button>
+            <button onclick="location.href='ENFP'" class="textbox2"
+                style="border-color: rgb(255, 68, 68);  background-color: rgb(255, 209, 209) ">
+                ENFP<p class="p1" style="color: rgb(255, 68, 68);  margin: 0px;">지적인 지도자</p>
+            </button>
+            <button onclick="window.open('ENTJ', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color: rgb(50, 173, 255);  background-color: rgb(204, 235, 255)">
+                ENTJ<p class="p1" style="color: rgb(50, 173, 255);  margin: 0px;">정열적인<br>활동가</p>
+            </button>
+            <button onclick="location.href='ENTJ'" class="textbox2"
+                style="border-color: rgb(50, 173, 255);  background-color: rgb(204, 235, 255)">
+                ENTJ<p class="p1" style="color: rgb(50, 173, 255);  margin: 0px;">정열적인<br>활동가</p>
+            </button>
+            <button onclick="window.open('ENTP', '팝업창', 'width=500, height=700')" class="textbox "
+                style="border-color: rgb(26, 134, 148);  background-color: rgb(219, 251, 255) ">
+                ENTP<p class="p1" style="color: rgb(26, 134, 148);  margin: 0px;">다재다능한<br>혁명가</p>
+            </button>
+            <button onclick="location.href='ENTP'" class="textbox2 "
+                style="border-color: rgb(26, 134, 148);  background-color: rgb(219, 251, 255) ">
+                ENTP<p class="p1" style="color: rgb(26, 134, 148);  margin: 0px;">다재다능한<br>혁명가</p>
+            </button>
+        </div>
+        <div class="texttable">
+            <button onclick="window.open('INFJ', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color:rgb(125, 87, 197);  background-color: rgb(230, 202, 255) ">
+                INFJ<p class="p1" style="color: rgb(125, 87, 197); margin: 0px;">이상적인<br> 평화주의자</p>
+            </button>
+            <button onclick="location.href='INFJ'" class="textbox2"
+                style="border-color:rgb(125, 87, 197);  background-color: rgb(230, 202, 255) ">
+                INFJ<p class="p1" style="color: rgb(125, 87, 197); margin: 0px;">이상적인<br> 평화주의자</p>
+            </button>
+            <button onclick="window.open('INFP', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color:  rgb(174, 74, 231);  background-color: rgb(239, 211, 255)">
+                INFP<p class="p1" style="color: rgb(174, 74, 231);  margin: 0px;">낭만적인<br>중재자</p>
+            </button>
+            <button onclick="location.href='INFP'" class="textbox2"
+                style="border-color:  rgb(174, 74, 231);  background-color: rgb(239, 211, 255)">
+                INFP<p class="p1" style="color: rgb(174, 74, 231);  margin: 0px;">낭만적인<br>중재자</p>
+            </button>
+            <button onclick="window.open('INTJ', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color: rgb(68, 81, 255);  background-color: rgb(206, 210, 255) ">
+                INTJ<p class="p1" style="color: rgb(68, 81, 255);  margin: 0px;">냉철한 전략가</p>
+            </button>
+            <button onclick="location.href='INTJ'" class="textbox2"
+                style="border-color: rgb(68, 81, 255);  background-color: rgb(206, 210, 255) ">
+                INTJ<p class="p1" style="color: rgb(68, 81, 255);  margin: 0px;">냉철한 전략가</p>
+            </button>
+            <button onclick="window.open('INTP', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color: rgb(76, 199, 221);  background-color:rgb(224, 241, 255)  ">
+                INTP<p class="p1" style="color:  rgb(76, 199, 221);  margin: 0px;">논리적인<br>사색가</p>
+            </button>
+            <button onclick="location.href='INTP'" class="textbox2"
+                style="border-color: rgb(76, 199, 221);  background-color:rgb(224, 241, 255)  ">
+                INTP<p class="p1" style="color:  rgb(76, 199, 221);  margin: 0px;">논리적인<br>사색가</p>
+            </button>
+        </div>
+
+        <div class="texttable">
+            <button onclick="window.open('ESFJ', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color: rgb(63, 197, 179);  background-color: rgb(208, 255, 249)  ">
+                ESFJ<p class="p1" style="color:  rgb(63, 197, 179); margin: 0px;">친밀한 사교가</p>
+            </button>
+            <button onclick="location.href='ESFJ'" class="textbox2"
+                style="border-color: rgb(63, 197, 179);  background-color: rgb(208, 255, 249)  ">
+                ESFJ<p class="p1" style="color:  rgb(63, 197, 179); margin: 0px;">친밀한 사교가</p>
+            </button>
+            <button onclick="window.open('ESFP', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color: rgb(27, 173, 46);  background-color: rgb(191, 255, 204)">
+                ESFP<p class="p1" style="color:  rgb(27, 173, 46);  margin: 0px;">흥이 넘치는<br>연예인</p>
+            </button>
+            <button onclick="location.href='ESFP'" class="textbox2"
+                style="border-color: rgb(27, 173, 46);  background-color: rgb(191, 255, 204)">
+                ESFP<p class="p1" style="color:  rgb(27, 173, 46);  margin: 0px;">흥이 넘치는<br>연예인</p>
+            </button>
+            <button onclick="window.open('ESTJ', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color: rgb(194, 88, 88);  background-color: rgb(255, 202, 202)">
+                ESTJ<p class="p1" style="color: rgb(194, 88, 88); margin: 0px;">체계적인<br>사업가</p>
+            </button>
+            <button onclick="location.href='ESTJ'"class="textbox2"
+                style="border-color: rgb(194, 88, 88);  background-color: rgb(255, 202, 202)">
+                ESTJ<p class="p1" style="color: rgb(194, 88, 88); margin: 0px;">체계적인<br>사업가</p>
+            </button>
+            <button onclick="window.open('ESTP', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color: rgb(255, 132, 50);  background-color: rgb(255, 218, 194) ">
+                ESTP<p class="p1" style="color: rgb(255, 132, 50); margin: 0px;">수완 좋은 <br> 모험가</p>
+            </button>
+            <button onclick="location.href='ESTP'" class="textbox2"
+                style="border-color: rgb(255, 132, 50);  background-color: rgb(255, 218, 194) ">
+                ESTP<p class="p1" style="color: rgb(255, 132, 50); margin: 0px;">수완 좋은 <br> 모험가</p>
+            </button>
+        </div>
+        <div class="texttable">
+            <button onclick="window.open('ISFJ', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color: rgb(67, 207, 62);  background-color:rgb(216, 253, 216)">
+                ISFJ<p class="p1" style="color:  rgb(67, 207, 62);  margin: 0px;">믿음직한<br>동반자</p>
+            </button>
+            <button onclick="location.href='ISFJ'" class="textbox2"
+                style="border-color: rgb(67, 207, 62);  background-color:rgb(216, 253, 216)">
+                ISFJ<p class="p1" style="color:  rgb(67, 207, 62);  margin: 0px;">믿음직한<br>동반자</p>
+            </button>
+            <button onclick="window.open('ISFP', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color:  rgb(116, 168, 32);  background-color: rgb(227, 255, 182)">
+                ISFP<p class="p1" style="color: rgb(116, 168, 32);  margin: 0px;">온화한 예술가</p>
+            </button>
+            <button onclick="location.href='ISFP'" class="textbox2"
+                style="border-color:  rgb(116, 168, 32);  background-color: rgb(227, 255, 182)">
+                ISFP<p class="p1" style="color: rgb(116, 168, 32);  margin: 0px;">온화한 예술가</p>
+            </button>
+            <button onclick="window.open('ISTJ', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color: rgb(175, 149, 63);  background-color: rgb(255, 244, 206)">
+                ISTJ<p class="p1" style="color: rgb(175, 149, 63);  margin: 0px;">단정한 모범생</p>
+            </button>
+            <button onclick="location.href='ISTJ'" class="textbox2"
+                style="border-color: rgb(175, 149, 63);  background-color: rgb(255, 244, 206)">
+                ISTJ<p class="p1" style="color: rgb(175, 149, 63);  margin: 0px;">단정한 모범생</p>
+            </button>
+            <button onclick="window.open('ISTP', '팝업창', 'width=500, height=700')" class="textbox"
+                style="border-color: rgb(224, 209, 0);  background-color: rgb(255, 251, 193)">
+                ISTP<p class="p1" style="color: rgb(224, 209, 0);  margin: 0px;">재치있는<br>능력자</p>
+            </button>
+            <button onclick="location.href='ISTP'"class="textbox2"
+                style="border-color: rgb(224, 209, 0);  background-color: rgb(255, 251, 193)">
+                ISTP<p class="p1" style="color: rgb(224, 209, 0);  margin: 0px;">재치있는<br>능력자</p>
+            </button>
+        </div>
+    </div>
+
+
+
+
+
+</body>
+
+</html>

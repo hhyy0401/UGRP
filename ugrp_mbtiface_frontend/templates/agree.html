@@ -1,0 +1,146 @@
+<!doctype html>
+
+<html lang="ko">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5K2V9ZNPEK"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-5K2V9ZNPEK');
+    </script>    
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <title>
+        인공지능 MBTI
+    </title>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="">
+    <link rel="shortcut icon" href="{{url_for('static', filename='image/image1.png')}}"><!-- 파비콘 아이콘 -->
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+    
+    <style>
+        .subtitle {
+            margin-top: 30px;
+            margin-left: 10px;
+            color: #2F5597;
+            font-weight: 700;
+        }
+        button.cl:hover{
+            opacity: 50%;
+        }
+    </style>
+
+    <style>
+        
+        @media all and (max-width: 350px) {
+            .dis1 {font-size: 50%;}
+        }
+
+        @media all and (min-width: 350px) and (max-width: 768px) {
+            .dis1 { font-size: 70%;}
+        }
+
+        @media all and (min-width: 768px) and (max-width: 1024px) {
+            .dis1 { font-size: 90%;}
+        }
+
+        @media all and (min-width: 1024px) and (max-width: 1280px) {
+            .dis1 { font-size: 110%; margin-top: 5%}
+        }
+
+        @media all and (min-width: 1280px) {
+            .dis1 { font-size: 100%; margin-top: 5%}
+        }
+
+        body {
+            font-size: larger;
+            background-image:url("{{url_for('static', filename='image/checkfi.jpg')}}" ) ;
+            font-family: 'Sunflower', sans-serif;
+            font-weight: bolder;
+        }
+    </style>
+    <script type="text/javascript">
+
+        jQuery(function ($) {
+            $("body").css("display", "none");
+            $("body").fadeIn(700);
+            $("a.transition").click(function (event) {
+                event.preventDefault();
+                linkLocation = this.href;
+                $("body").fadeOut(700, redirectPage);
+            });
+            function redirectPage() {
+                window.location = linkLocation;
+            }
+        });
+
+    </script>
+
+</head>
+
+
+
+<body>
+
+    <div id="wrap">
+
+        <div class="subtitle">
+            개인정보 이용 약관
+        </div>
+
+        
+        <div class="dis1" style="text-align: left; margin-left: 10%; margin-right: 10%; color: rgb(77, 76, 76);">
+            <br><br><br><br>
+            1. 본 웹사이트는 2020 POSTECH UGRP (학부생 연구 프로그램)의 결과로써
+             딥러닝 모델 VGG로 추출한 얼굴의 feature 값을 ML(machine learning) 기법으로 학습한 모델로
+             MBTI를 예측하는 목적으로 제작되었습니다.
+            <br><br> 2. 본 웹사이트는 향후 수집된 얼굴들로 모델의 성능을 더욱 향상시키고자 합니다.
+            <br><br> 3. 아래 약관에 동의하신다면, 입력된 얼굴은 향후 모델을 다시 학습하는데 사용됩니다.
+            수집된 얼굴은 "모델 학습" 외 다른 목적에 전혀 사용되지 않습니다.
+            <br><br> 4. 약관에 동의하지 않으신다면, VGG로 추출한 얼굴 feature 값만을 저장해서
+             MBTI 값을 에측하는 데에만 사용됩니다.
+            <br><br>
+            <br> 아래 약관에 동의하시겠습니까?
+
+            <br><br>
+            <p>
+                <button class="cl" onclick="location.href='agreewith'"
+                    style="font-size: larger; font-family: 'Sunflower', sans-serif; border-color: #ffffff00; background-color: #ffffff00; border-style: solid; color: #3362b3"><b>예,
+                        동의합니다.</b></button>
+
+            </p>
+
+            <p>
+                <button class="cl" onclick="location.href='disagree'"
+                    style="font-size: larger; font-family: 'Sunflower', sans-serif; border-color: #ffffff00; background-color: #ffffff00; border-style: solid; color: #494d55"><b>아니요,
+                        수집을 원하지 않습니다.</b></button>
+            </p>
+        </div>
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,461 @@
+<!doctype html>
+
+<html lang="ko">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-5K2V9ZNPEK"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-5K2V9ZNPEK');
+    </script>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+  <!--meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"-->
+  <title>
+    인공지능 MBTI
+  </title>
+
+  <link rel="stylesheet" href="{{url_for('static', filename='CSS/bootstrap.min.css')}}" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='CSS/cropper3.css')}}">
+  <link rel="stylesheet" type="text/css" href="">
+  <link rel="shortcut icon" href="{{url_for('static', filename='image/image1.png')}}"><!-- 파비콘 아이콘 -->
+  <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+  
+
+ 
+  <style>
+    .label {
+      cursor: pointer;
+    }
+
+    .progress {
+      display: none;
+      margin-bottom: 1rem;
+    }
+
+    .alert {
+      display: none;
+    }
+
+    .img-container img {
+      max-width: 100%;
+
+    }
+
+    .subtitle {
+      margin-top: 30px;
+      margin-left: 10px;
+      color: #2F5597;
+      font-weight: 700;
+    }
+
+    .filebox label {
+      height: 200px;
+      width: 180px;
+      display: inline-block;
+      padding: .5em .75em;
+      color: #fff;
+      font-size: inherit;
+      line-height: normal;
+      vertical-align: middle;
+      background-color: #fff;
+      cursor: pointer;
+      border: 1px solid #fff;
+      border-radius: .25em;
+      -webkit-transition: background-color 0.2s;
+      transition: background-color 0.2s;
+      background-repeat: none;
+
+    }
+
+    .filebox input[type="file"] {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+  </style>
+  <!--script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+    <script type="text/javascript">
+
+    $(function(){//제이쿼리 시작
+    });
+    </script-->
+
+  <style>
+    @media all and (max-width: 480px) {
+      .dis1 {
+        font-size: 10px;
+      }
+
+      img.rounded {
+        width: 70%;
+        height: auto;
+      }
+
+      .modal-title {
+        font-size: 75%;
+      }
+    }
+
+    @media all and (min-width: 480px) and (max-width: 768px) {
+      .dis1 {
+        font-size: 15px;
+      }
+
+      .modal-title {
+        font-size: 90%;
+      }
+    }
+
+    @media all and (min-width: 768px) {
+      .dis1 {
+        margin-top: 30%;
+        font-size: 20px;
+      }
+    }
+
+    .rounded:hover {
+      opacity: 50%;
+    }
+
+    body {
+      background-image:url("{{url_for('static', filename='image/checkfi.jpg')}}");
+      font-size: larger;
+      font-family: 'Sunflower', sans-serif;
+    }
+  </style>
+
+</head>
+
+
+<body>
+
+  <div id="wrap">
+
+    <div class="subtitle">
+      인상으로 MBTI 알아보기
+    </div>
+
+    <b id="user_info" style="display: none;">{{ user_num }}</b>
+    <div class="dis1" style="text-align: center; margin-top: 10%; color: gray">
+
+      <b class="dis1" style="color: rgb(83, 83, 83);">사진을 추가하려면 <b style="color: #1b56bb">+</b>버튼을 눌러주세요.</b>
+      <br>
+      ({{alert }})
+      <br><br><br>
+      <!--button onclick="location.href='photo.html'" style="border:0;background-color: white;"> <img style="border:0" src="./button.png"> </button-->
+      <div class="container" style="text-align: center;">
+
+        <label class="label" data-toggle="tooltip" title="여기를 클릭하세요.">
+          <div style="text-align: center;">
+
+            <img class="rounded" id="avatar" src="{{url_for('static', filename='image/button.png')}}" alt="avatar">
+          </div>
+
+
+          <input type="file" class="sr-only" id="input" name="image" accept="image/*">
+
+        </label>
+
+        <div class="progress">
+          <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0"
+            aria-valuemin="0" aria-valuemax="100">0%</div>
+        </div>
+        <div class="alert" role="alert"></div>
+        <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel"
+                  style="font-weight: bolder; text-align: left; color:rgb(46, 46, 46)">얼굴 전체가 잘 나오고 <br> 눈의 중앙이 이미지의 중앙이
+                  되도록 잘라주세요.</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                </button>
+              </div>
+              <div class="modal-body" style="position: relative; size: 10px;">
+
+                <div class="img-container" style="vertical-align: middle;">
+                  <!--img class="cropper-crop-box" style=" height: 20px; width: auto; position: absolute; z-index: 9999; margin: auto;
+                          " src="{{url_for('static', filename='image/face.png')}}" /-->
+
+                  <img id="image" src="{{url_for('static', filename='image/button.png')}}">
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="crop">Crop</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <script src="https://unpkg.com/jquery@3/dist/jquery.min.js" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/bootstrap@4/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="{{url_for('static', filename='JS/cropper.js')}}"></script>
+    <script>
+      window.addEventListener('DOMContentLoaded', function () {
+        var avatar = document.getElementById('avatar');
+        var image = document.getElementById('image');
+        var input = document.getElementById('input');
+        var $progress = $('.progress');
+        var $progressBar = $('.progress-bar');
+        var $alert = $('.alert');
+        var $modal = $('#modal');
+        var cropper;
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        input.addEventListener('change', function (e) {
+          var files = e.target.files;
+          var done = function (url) {
+            input.value = '';
+            image.src = url;
+            $alert.hide();
+            $modal.modal('show');
+          };
+          var reader;
+          var file;
+          var url;
+
+          if (files && files.length > 0) {
+            file = files[0];
+
+            if (URL) {
+              done(URL.createObjectURL(file));
+            } else if (FileReader) {
+              reader = new FileReader();
+              reader.onload = function (e) {
+                done(reader.result);
+              };
+              reader.readAsDataURL(file);
+            }
+          }
+        });
+
+        $modal.on('shown.bs.modal', function () {
+          cropper = new Cropper(image, {
+            dragMode: 'move',
+            aspectRatio: 1 / 1,
+            autoCropArea: 0.65,
+            restore: true,
+            guides: false,
+            center: false,
+            highlight: false,
+            cropBoxMovable: false,
+            cropBoxResizable: false,
+            toggleDragModeOnDblclick: false,
+            responsive: true,
+            rotatable: true,
+            scalabe: true,
+            zoomable: true,
+            background: true,
+            center: true,
+          });
+        }).on('hidden.bs.modal', function () {
+          cropper.destroy();
+          cropper = null;
+        });
+
+        document.getElementById('crop').addEventListener('click', function () {
+          var userinfo = $("#user_info").text();
+          var initialAvatarURL;
+          var canvas;
+
+          $modal.modal('hide');
+
+          if (cropper) {
+            canvas = cropper.getCroppedCanvas({
+              width: 300,
+              height: 300,
+            });
+            initialAvatarURL = avatar.src;
+            avatar.src = canvas.toDataURL();
+            $progress.show();
+            $alert.removeClass('alert-success alert-warning');
+            initialAvatarURL = avatar.src;
+            $alert.show().addClass('alert-success').text('AI가 당신의 MBTI를 예측 중입니다.');
+            canvas.toBlob(function (blob) {
+              //console.log(blob);
+              var img_json = {
+                data: avatar.src,
+                userinfo: userinfo
+              }
+              //console.log(img_json);
+              var formData = new FormData();
+              formData.append('avatar', blob, 'avatar.jpg');
+
+              //for (var pair of formData.entries()) 
+              //{ console.log(pair[0]+ ', ' + pair[1]+ ', ' + pair[2]); }
+              //for (let value of formData.values()) {
+              // console.log(value); 
+              //}
+              //console.log(img_json);
+              $.ajax('/predict', {
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify(img_json),
+                processData: false,
+                contentType: 'application/json',
+
+                xhr: function () {
+                  var xhr = new XMLHttpRequest();
+
+                  xhr.upload.onprogress = function (e) {
+                    var percent = '0';
+                    var percentage = '0%';
+
+                    if (e.lengthComputable) {
+                      percent = Math.round((e.loaded / e.total) * 100);
+                      percentage = percent + '%';
+                      $progressBar.width(percentage).attr('aria-valuenow', percent).text(percentage);
+                    }
+                  };
+
+                  return xhr;
+                },
+
+                success: function () {
+                  $alert.show().addClass('alert-success').text('성공!');
+                  window.location.href = "/input";
+                },
+
+                error: function () {
+                  //avatar.src = initialAvatarURL;
+                  $alert.show().addClass('alert-success').text('성공!');
+                  window.location.href = "/input";
+                },
+
+                complete: function () {
+                  //$progress.hide();
+                  $alert.show().addClass('alert-success').text('AI가 당신의 MBTI를 예측 중입니다.');
+                },
+              });
+            });
+          }
+        });
+      });
+
+
+    </script>
+    <script>
+      var info = $("#user_info").text();
+      //console.log(info)
+      localStorage.clear();
+      localStorage.setItem("user_id", info);
+
+    </script>
+    <!--div style="text-align: center;">
+            <form action="http://118.67.128.250:8888/predict" method="POST" enctype="multipart/form-data">
+
+                <div class="filebox">
+                    <label for="ex_file" style="background-image: url(./button.png);"> </label>
+                    <input type="file" name="file" id="ex_file" onchange="previewImage(this,'View_area')">
+                    <div id='View_area'
+                        style='position:relative; width: 200px; height: 200px; color: black; border: 0px solid black; display: inline '>
+                    </div>
+                </div-->
+
+    <!--img src="./button.png">
+                <br>
+                <input type="file" name="file"
+                    style="opacity: 1; height: 200px; width: 200px; color: #ffffff; background-position:top right;background-repeat:no-repeat;"-->
+    <!--input type="file" name="profile_pt" id="profile_pt" onchange="previewImage(this,'View_area')"-->
+
+    <!--input type="submit"
+                    style="border-radius: 10px; border-style: solid; border-color: #74a5ff; background-color: rgb(255, 255, 255); color:rgb(83, 83, 83);">
+            </form>
+        </div>
+
+        <script>
+
+            function previewImage(targetObj, View_area) {
+                var preview = document.getElementById(View_area); //div id
+                var ua = window.navigator.userAgent;
+
+                //ie일때(IE8 이하에서만 작동)
+                if (ua.indexOf("MSIE") > -1) {
+                    targetObj.select();
+                    try {
+                        var src = document.selection.createRange().text; // get file full path(IE9, IE10에서 사용 불가)
+                        var ie_preview_error = document.getElementById("ie_preview_error_" + View_area);
+
+
+                        if (ie_preview_error) {
+                            preview.removeChild(ie_preview_error); //error가 있으면 delete
+                        }
+
+                        var img = document.getElementById(View_area); //이미지가 뿌려질 곳
+
+                        //이미지 로딩, sizingMethod는 div에 맞춰서 사이즈를 자동조절 하는 역할
+                        img.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + src + "', sizingMethod='scale')";
+                    } catch (e) {
+                        if (!document.getElementById("ie_preview_error_" + View_area)) {
+                            var info = document.createElement("<p>");
+                            info.id = "ie_preview_error_" + View_area;
+                            info.innerHTML = e.name;
+                            preview.insertBefore(info, null);
+                        }
+                    }
+                    //ie가 아닐때(크롬, 사파리, FF)
+                } else {
+                    var files = targetObj.files;
+                    for (var i = 0; i < files.length; i++) {
+                        var file = files[i];
+                        var imageType = /image.*/; //이미지 파일일경우만.. 뿌려준다.
+                        if (!file.type.match(imageType))
+                            continue;
+                        var prevImg = document.getElementById("prev_" + View_area); //이전에 미리보기가 있다면 삭제
+                        if (prevImg) {
+                            preview.removeChild(prevImg);
+                        }
+                        var img = document.createElement("img");
+                        img.id = "prev_" + View_area;
+                        img.classList.add("obj");
+                        img.file = file;
+                        img.style.width = '200px';
+                        img.style.height = '200px';
+                        preview.appendChild(img);
+                        if (window.FileReader) { // FireFox, Chrome, Opera 확인.
+                            var reader = new FileReader();
+                            reader.onloadend = (function (aImg) {
+                                return function (e) {
+                                    aImg.src = e.target.result;
+                                };
+                            })(img);
+                            reader.readAsDataURL(file);
+                        } else { // safari is not supported FileReader
+                            //alert('not supported FileReader');
+                            if (!document.getElementById("sfr_preview_error_"
+                                + View_area)) {
+                                var info = document.createElement("p");
+                                info.id = "sfr_preview_error_" + View_area;
+                                info.innerHTML = "not supported FileReader";
+                                preview.insertBefore(info, null);
+                            }
+                        }
+                    }
+                }
+            }
+        </script-->
+
+</body>
+
+</html>

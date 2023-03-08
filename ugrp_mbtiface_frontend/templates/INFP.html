@@ -1,0 +1,211 @@
+<!doctype html>
+
+<html lang="ko">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="page-enter" content="BlendTrans(Duration=0.1)">
+
+    <meta http-equiv="page-exit" content="BlendTrans(Duration=0.1)">
+
+
+    <title>
+        AI로 MBTI 예측하기
+    </title>
+
+    <link rel="stylesheet" type="text/css" href="">
+    <link rel="shortcut icon" href=""><!-- 파비콘 아이콘 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sunflower:wght@300&display=swap" rel="stylesheet">
+
+    <style>
+        @import url(//fonts.googleapis.com/earlyaccess/nanumgothic.css);
+        .subtitle {
+            margin-top: 40px;
+            text-align: center;
+            color: #2F5597;
+            font-weight: 700;
+
+        }
+
+        .note1 {
+            position: relative;
+            background: #ffd493;
+            margin: 20px;
+            padding: 15px;
+            color: rgb(66, 32, 0);
+            justify-content: center;
+        }
+
+        .note1:before {
+            content: "";
+            position: absolute;
+            top: 0;
+            right: 0;
+            border-width: 0 16px 16px 0;
+            border-style: solid;
+            border-color: #FFFFFF #FFFFFF #bb6a00 #bb6a00;
+            background: #bb6a00;
+            display: block;
+            width: 0;
+        }
+
+        div.fi {
+            display: none;
+        }
+
+        body {
+            background-image:url("{{url_for('static', filename='image/checkfi.jpg')}}" ) ;
+            font-family: 'Sunflower', sans-serif;
+        }
+        
+    </style>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-latest.min.js"></script>
+
+
+    <style >
+        @media all and (max-width: 350px) {
+
+
+            img.pho {
+                width: 80%;
+                font-size: 20px;
+            }
+            div.finale {
+                font-size: 15px;
+            }
+            .note1 {
+                font-size: 15px;
+            }
+            img.pho {
+                width: 80%;
+                font-size: 20px;
+            }
+            img.finale {
+                width: 60px;
+            }
+            div.finale {
+                font-size: 15px;
+            }
+        }
+
+        @media all and (min-width: 350px) and (max-width: 750px) {
+           
+
+            img.pho {
+                width: 300px;
+                font-size: 25px;
+            }
+            .note1 {
+                font-size: 20px;
+            }
+            img.pho {
+                width: 300px;
+                font-size: 25px;
+            }
+            img.finale {
+                width: 120px;
+            }
+            div.finale {
+                font-size: 17px;
+            }
+ 
+        }
+
+        @media all and (min-width: 750px) and (max-width: 1024px) {
+            .note1 {
+                width: 600px;
+                display: inline-block;
+                font-size: 30px;
+            }
+            img.finale {
+                width: 150px;
+            }
+            div.finale {
+                font-size: 30px;
+            }
+        }
+
+        @media all and (min-width: 1024px) and (max-width: 1280px) {
+  
+
+            .note1 {
+                width: 800px;
+                display: inline-block;
+                font-size: 30px;
+            }
+            img.finale {
+                width: 150px;
+            }
+            div.finale {
+                font-size: 30px;
+            }
+        }
+
+        @media all and (min-width: 1280px) {
+         
+            .note1 {
+                width: 800px;
+                display: inline-block;
+                font-size: 30px;
+            }
+            img.finale {
+                width: 150px;
+            }
+            div.finale {
+                font-size: 30px;
+            }
+        }
+        .note1{
+            font-weight: bolder;
+        }
+    </style>
+
+</head>
+
+
+
+<body>
+
+    <div id="wrap">
+
+        <div style="text-align: center; margin-top: 20px;">
+
+            <div style="text-align: center">
+                <img class="pho" src="{{url_for('static', filename='image/INFP.png')}}">
+            </div>
+
+
+            <div style="margin-top: 20px;">
+                <img class="finale" style="display: inline-block" src="{{url_for('static', filename='image/ponix.png')}}">
+                <div class="finale" style="display: inline-block; font-family: 'Poor Story', cursive; "> 가 들려주는 <b style="color: rgb(150, 0, 75)">MBTI</b> 이야기</div>
+            </div>
+
+            <div class="note1" style="text-align: initial; text-align:start; font-family: 'Poor Story', cursive;">
+                <span id="viewtext"></span>
+                <b style="color:rgb(150, 0, 75)">"<span id="viewtext2"></span>"</b>
+                <span id="viewtext3"></span>
+
+                <br>
+            </div>
+
+        </div>
+        <script>
+            
+            $(document).ready(function () {
+                $("span#viewtext").text("INFP는 "); 
+                $("span#viewtext2").text("낭만적인 중재자");
+                $("span#viewtext3").text("상입니다. 공상적, 정열적, 목가적, 낭만적이고, 마음이 따뜻하고 조용하며 책임감이 강하고 성실합니다. 또한 마음이 따뜻하고 조용하며 책임감이 강하고 성실합니다. 이상에 대한 정열적인 신념을 지녔으며, 경쟁이나 지배욕은 적은 편입니다. 소수나 사회적 약자의 처지를 공감하고 이해심이 뛰어나나, 지속적으로 화를 참고 넘어 가는 것이 되려 정신 건강을 해칠 수 있습니다. 쿼드라 그룹 모형에 따르면 Delta 그룹에 속해 ENFP, ESTJ, ISTJ인 사람들과 집단을 형성했을 때 가장 큰 심리적 편안함을 느끼며, ESTP와는 상극입니다. 대표적인 인물로는 아이유, 조니 뎁, 존 레논 등이 있습니다.");  
+                        
+            });
+
+
+        </script>
+        
+</body>
+
+</html>
